@@ -57,3 +57,12 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Local routes added
+
+This project now includes simple standalone components and routes:
+
+- `/dashboard` — shows the `DashboardComponent`.
+- `/usage` — shows the `UsageComponent`.
+
+Use the header links or navigate directly to the paths in the browser while the dev server is running.
