@@ -1,4 +1,4 @@
-# appdev1--sdg4-KnowHub
+# appdev1--sdg6-WaterWise
 
 SDG 6 - CLEAN WATER AND SANITATION
 Water quality monitor, sanitation access tracker, water conservation guide
