@@ -34,11 +34,6 @@ import { WaterQualityService, QualityLocation } from './water-quality.service';
       </div>
     </nav>
 
-    <section class="dashboard-intro">
-      <h2>Dashboard</h2>
-      <p>Welcome to the Dashboard. This component demonstrates routing.</p>
-    </section>
-
     <section class="quality-panel">
       <div class="quality-panel-header">
         <div>
@@ -208,15 +203,6 @@ import { WaterQualityService, QualityLocation } from './water-quality.service';
       .search-button:hover {
         background: rgba(255, 255, 255, 0.95);
         transform: translateY(-1px);
-      }
-
-      .dashboard-intro {
-        padding: 0 4px;
-      }
-
-      .dashboard-intro h2 {
-        margin-top: 0;
-        color: #0d6efd;
       }
 
       .quality-panel {
