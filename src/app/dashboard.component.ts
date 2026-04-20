@@ -7,33 +7,6 @@ import { WaterQualityService, QualityLocation } from './water-quality.service';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <nav class="dashboard-navbar">
-      <div class="navbar-brand">WaterWise</div>
-
-      <ul class="nav-links">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Sanitation Access</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Conservation Guide</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Quality Monitor</a>
-        </li>
-      </ul>
-
-      <div class="search-group">
-        <form class="search-form" role="search">
-          <input class="search-input" type="search" placeholder="Search" aria-label="Search" />
-          <button class="search-button" type="submit">Search</button>
-        </form>
-
-        <button type="button" class="profile-avatar" aria-label="Profile">
-          <img [src]="profileImage" alt="Profile avatar" />
-        </button>
-      </div>
-    </nav>
-
     <section class="dashboard-intro">
       <h2>Dashboard</h2>
       <p>Welcome to the Dashboard. This component demonstrates routing.</p>
@@ -381,5 +354,19 @@ export class DashboardComponent implements OnInit {
         this.loading = false;
       },
     });
+  }
+
+  get isAuthenticated(): boolean {
+    return !!localStorage.getItem('authToken');
+  }
+
+  login() {
+    localStorage.setItem('authToken', 'authenticated');
+    alert('Logged in! You can now access the protected routes.');
+  }
+
+  logout() {
+    localStorage.removeItem('authToken');
+    alert('Logged out!');
   }
 }

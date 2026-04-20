@@ -5,6 +5,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { WaterQualityMonitorComponent } from './comps/water-quality-monitor/water-quality-monitor.component';
 import { WaterConservationGuideComponent } from './comps/water-conservation-guide/water-conservation-guide.component';
 import { SanitationAccessTrackerComponent } from './comps/sanitation-access-tracker/sanitation-access-tracker.component';
+import { ProfileComponent } from './comps/profile/profile.component';
 
 export const routes: Routes = [
 	{ path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -13,5 +14,6 @@ export const routes: Routes = [
 	{ path: 'water-quality', component: WaterQualityMonitorComponent, canActivate: [AuthGuard] },
 	{ path: 'water-conservation', component: WaterConservationGuideComponent, canActivate: [AuthGuard] },
 	{ path: 'sanitation', component: SanitationAccessTrackerComponent, canActivate: [AuthGuard] },
+	{ path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
 	{ path: '**', redirectTo: '/dashboard' }
 ];
