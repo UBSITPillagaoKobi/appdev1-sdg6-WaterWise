@@ -12,8 +12,8 @@ import { WaterQualityService, QualityLocation } from './water-quality.service';
       <p>Welcome to the Dashboard. This component demonstrates routing.</p>
       
       <div class="mb-3">
-        <button class="btn btn-success me-2" (click)="login()">Login to Access Features</button>
-        <button class="btn btn-danger" (click)="logout()">Logout</button>
+        <button class="btn btn-success me-2" (click)="login()">Click here to access features</button>
+        <button class="btn btn-danger" (click)="logout()">Click here to lock the features</button>
         <p class="mt-2">Status: {{ isAuthenticated ? 'Authenticated' : 'Not Authenticated' }}</p>
       </div>
     </section>
