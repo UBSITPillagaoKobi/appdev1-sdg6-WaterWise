@@ -1,24 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { WaterQualityService, QualityLocation } from './water-quality.service';
+import { FormsModule } from '@angular/forms';
+import { WaterQualityService } from './water-quality.service';
+import { QualityLocation } from './models/water-quality.model';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   template: `
     <nav class="dashboard-navbar">
       <div class="navbar-brand">WaterWise</div>
 
       <ul class="nav-links">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Sanitation Access</a>
+          <button class="nav-link" [class.active]="activeSection === 'sanitation'" (click)="setActiveSection('sanitation')">Sanitation Access</button>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Conservation Guide</a>
+          <button class="nav-link" [class.active]="activeSection === 'conservation'" (click)="setActiveSection('conservation')">Conservation Guide</button>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Quality Monitor</a>
+          <button class="nav-link" [class.active]="activeSection === 'quality'" (click)="setActiveSection('quality')">Quality Monitor</button>
         </li>
       </ul>
 
@@ -34,36 +36,132 @@ import { WaterQualityService, QualityLocation } from './water-quality.service';
       </div>
     </nav>
 
-    <section class="quality-panel">
-      <div class="quality-panel-header">
-        <div>
-          <h3>Live Environment Snapshot</h3>
-          <p>Data from the Open-Meteo public API for quick environment context.</p>
+    <section *ngIf="activeSection === 'sanitation'" class="content-section">
+      <div class="panel">
+        <h3>Sanitation Access</h3>
+        <p>Information about sanitation access and facilities in your area.</p>
+        <div class="sanitation-stats">
+          <div class="stat-card">
+            <h4>Access Rate</h4>
+            <span class="stat-value">85%</span>
+            <p>Population with access to improved sanitation</p>
+          </div>
+          <div class="stat-card">
+            <h4>Facilities</h4>
+            <span class="stat-value">1,250</span>
+            <p>Public sanitation facilities available</p>
+          </div>
+          <div class="stat-card">
+            <h4>Coverage</h4>
+            <span class="stat-value">92%</span>
+            <p>Area covered by sanitation services</p>
+          </div>
         </div>
-        <span class="quality-tag">Open-Meteo</span>
       </div>
+    </section>
 
-      <div *ngIf="loading" class="status-message">Loading latest quality data...</div>
-      <div *ngIf="error" class="status-message error">{{ error }}</div>
-
-      <div class="quality-grid" *ngIf="!loading && !error && latestData.length > 0">
-        <article *ngFor="let item of latestData" class="quality-card">
-          <div class="quality-card-top">
-            <span class="quality-location">{{ item.location }}</span>
-            <span class="quality-country">{{ item.country }}</span>
+    <section *ngIf="activeSection === 'conservation'" class="content-section">
+      <div class="panel">
+        <h3>Water Conservation Guide</h3>
+        <p>Practical tips and strategies to conserve water in your daily life.</p>
+        
+        <div class="conservation-tips">
+          <article class="tip-card">
+            <h4>🚿 Shower Smarter</h4>
+            <p>Take shorter showers (5-10 minutes) and install low-flow showerheads to reduce water usage by up to 50%.</p>
+          </article>
+          
+          <article class="tip-card">
+            <h4>🍽️ Kitchen Efficiency</h4>
+            <p>Run full loads in dishwashers and washing machines. Fix leaky faucets immediately - they can waste 3,000 gallons per year.</p>
+          </article>
+          
+          <article class="tip-card">
+            <h4>🌱 Garden Wisely</h4>
+            <p>Use drought-resistant plants, mulch to retain soil moisture, and water lawns/gardens during cooler parts of the day.</p>
+          </article>
+          
+          <article class="tip-card">
+            <h4>🚰 Faucet Habits</h4>
+            <p>Turn off faucets while brushing teeth or soaping up. Collect rainwater for outdoor use when possible.</p>
+          </article>
+          
+          <article class="tip-card">
+            <h4>🔧 Home Improvements</h4>
+            <p>Install dual-flush toilets and water-efficient appliances. Check for leaks regularly using your water meter.</p>
+          </article>
+          
+          <article class="tip-card">
+            <h4>🏡 Landscape Design</h4>
+            <p>Replace grass with native plants, use permeable paving, and create rain gardens to manage stormwater naturally.</p>
+          </article>
+        </div>
+        
+        <div class="conservation-calculator">
+          <h4>💧 Water Savings Calculator</h4>
+          <p>Estimate your potential water savings:</p>
+          <div class="calculator-inputs">
+            <label>Daily shower time (minutes): <input type="number" [(ngModel)]="showerTime" min="1" max="30" /> </label>
+            <label>Showers per week: <input type="number" [(ngModel)]="showersPerWeek" min="1" max="21" /> </label>
+            <button (click)="calculateSavings()" class="calc-button">Calculate Savings</button>
           </div>
-          <p class="quality-city">{{ item.city }}</p>
-          <div class="quality-value-row">
-            <span class="quality-value">{{ item.value }}</span>
-            <span class="quality-unit">{{ item.unit }}</span>
+          <div *ngIf="savingsResult" class="savings-result">
+            <p>By reducing shower time to 5 minutes, you could save approximately <strong>{{ savingsResult }} gallons per week</strong>!</p>
           </div>
-          <div class="quality-parameter">{{ item.parameter }}</div>
-          <div class="quality-updated">Updated: {{ item.lastUpdated | date:'short' }}</div>
-        </article>
+        </div>
       </div>
+    </section>
 
-      <div *ngIf="!loading && !error && latestData.length === 0" class="status-message">
-        No quality readings available right now.
+    <section *ngIf="activeSection === 'quality'" class="content-section">
+      <div class="quality-panel">
+        <div class="quality-panel-header">
+          <div>
+            <h3>Live Environment Snapshot</h3>
+            <p>Data from the Open-Meteo public API for quick environment context.</p>
+          </div>
+          <span class="quality-tag">Open-Meteo</span>
+        </div>
+
+        <div *ngIf="loading" class="status-message">⏳ Loading latest quality data...</div>
+        <div *ngIf="error" class="status-message error">{{ error }}</div>
+
+        <div class="quality-grid" *ngIf="!loading && !error && latestData.length > 0">
+          <article *ngFor="let item of latestData" class="quality-card">
+            <div class="quality-card-top">
+              <span class="quality-location">{{ item.location }}</span>
+              <span class="quality-country">{{ item.country }}</span>
+            </div>
+            <p class="quality-city">{{ item.city }}</p>
+            <div class="quality-value-row">
+              <span class="quality-value">{{ item.value }}</span>
+              <span class="quality-unit">{{ item.unit }}</span>
+            </div>
+            <div class="quality-parameter">{{ item.parameter }}</div>
+            <div class="quality-updated">Updated: {{ item.lastUpdated | date:'short' }}</div>
+          </article>
+        </div>
+
+        <div *ngIf="!loading && !error && latestData.length === 0" class="status-message">
+          No quality readings available right now.
+        </div>
+        
+        <div class="quality-alerts" *ngIf="!loading && !error">
+          <h4>⚠️ Quality Alerts</h4>
+          <div class="alert-card" *ngIf="hasHighPollution()">
+            <span class="alert-icon">🚨</span>
+            <div>
+              <h5>High Pollution Levels Detected</h5>
+              <p>Water quality parameters exceed safe limits in some areas. Consider using filtration systems.</p>
+            </div>
+          </div>
+          <div class="alert-card" *ngIf="hasLowQuality()">
+            <span class="alert-icon">⚡</span>
+            <div>
+              <h5>Seasonal Quality Changes</h5>
+              <p>Monitor water quality during rainy seasons as runoff may affect local sources.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   `,
@@ -115,10 +213,13 @@ import { WaterQualityService, QualityLocation } from './water-quality.service';
         align-items: center;
         padding: 10px 16px;
         color: rgba(255, 255, 255, 0.92);
-        text-decoration: none;
         border-radius: 999px;
         transition: background-color 200ms ease, color 200ms ease, transform 200ms ease;
         font-weight: 500;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
       }
 
       .nav-link:hover {
@@ -319,6 +420,183 @@ import { WaterQualityService, QualityLocation } from './water-quality.service';
         color: #b02a37;
       }
 
+      .content-section {
+        margin-top: 24px;
+      }
+
+      .panel {
+        background: #f8fafd;
+        padding: 22px;
+        border-radius: 16px;
+        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+      }
+
+      .panel h3 {
+        margin: 0 0 8px 0;
+        color: #0d6efd;
+      }
+
+      .panel > p {
+        margin: 0 0 20px 0;
+        color: #4a5768;
+      }
+
+      .sanitation-stats {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        margin-top: 20px;
+      }
+
+      .stat-card {
+        background: #ffffff;
+        padding: 18px;
+        border-radius: 12px;
+        border: 1px solid rgba(13, 110, 253, 0.08);
+        text-align: center;
+      }
+
+      .stat-card h4 {
+        margin: 0 0 8px 0;
+        color: #0d6efd;
+        font-size: 1rem;
+      }
+
+      .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #0d6efd;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .stat-card p {
+        margin: 0;
+        color: #6c757d;
+        font-size: 0.9rem;
+      }
+
+      .conservation-tips {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        margin-bottom: 24px;
+      }
+
+      .tip-card {
+        background: #ffffff;
+        padding: 18px;
+        border-radius: 12px;
+        border: 1px solid rgba(13, 110, 253, 0.08);
+        box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04);
+      }
+
+      .tip-card h4 {
+        margin: 0 0 8px 0;
+        color: #0d6efd;
+      }
+
+      .tip-card p {
+        margin: 0;
+        color: #4a5768;
+        line-height: 1.5;
+      }
+
+      .conservation-calculator {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid rgba(13, 110, 253, 0.08);
+      }
+
+      .conservation-calculator h4 {
+        margin: 0 0 8px 0;
+        color: #0d6efd;
+      }
+
+      .calculator-inputs {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        margin: 16px 0;
+        flex-wrap: wrap;
+      }
+
+      .calculator-inputs label {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 0.9rem;
+        color: #4a5768;
+      }
+
+      .calculator-inputs input {
+        padding: 8px 12px;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        width: 120px;
+      }
+
+      .calc-button {
+        padding: 10px 16px;
+        background: #0d6efd;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 200ms ease;
+      }
+
+      .calc-button:hover {
+        background: #0b5ed7;
+      }
+
+      .savings-result {
+        margin-top: 16px;
+        padding: 12px;
+        background: #e7f3ff;
+        border-radius: 8px;
+        border-left: 4px solid #0d6efd;
+      }
+
+      .quality-alerts {
+        margin-top: 24px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(13, 110, 253, 0.16);
+      }
+
+      .quality-alerts h4 {
+        margin: 0 0 16px 0;
+        color: #dc3545;
+      }
+
+      .alert-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        background: #fff5f5;
+        padding: 16px;
+        border-radius: 8px;
+        border: 1px solid #fed7d7;
+        margin-bottom: 12px;
+      }
+
+      .alert-icon {
+        font-size: 1.5rem;
+      }
+
+      .alert-card h5 {
+        margin: 0 0 4px 0;
+        color: #dc3545;
+      }
+
+      .alert-card p {
+        margin: 0;
+        color: #4a5768;
+        font-size: 0.9rem;
+      }
+
       @media (max-width: 760px) {
         .dashboard-navbar {
           justify-content: center;
@@ -346,20 +624,48 @@ export class DashboardComponent implements OnInit {
   latestData: QualityLocation[] = [];
   loading = true;
   error = '';
+  activeSection = 'quality';
+  showerTime = 10;
+  showersPerWeek = 7;
+  savingsResult: number | null = null;
 
   constructor(private qualityService: WaterQualityService) {}
 
   ngOnInit(): void {
     this.qualityService.getLatestQuality().subscribe({
-      next: (data) => {
+      next: (data: QualityLocation[]) => {
         this.latestData = data;
         this.loading = false;
       },
-      error: (err) => {
+      error: (err: Error) => {
         console.error(err);
         this.error = 'Unable to load quality data. Please try again later.';
         this.loading = false;
       },
     });
+  }
+
+  setActiveSection(section: string): void {
+    this.activeSection = section;
+  }
+
+  calculateSavings(): void {
+    const currentUsage = this.showerTime * this.showersPerWeek * 2.1;
+    const reducedUsage = 5 * this.showersPerWeek * 2.1;
+    this.savingsResult = Math.round(currentUsage - reducedUsage);
+  }
+
+  hasHighPollution(): boolean {
+    return this.latestData.some(item =>
+      item.parameter.toLowerCase().includes('pollution') ||
+      item.parameter.toLowerCase().includes('contamination') ||
+      (item.parameter.toLowerCase().includes('ph') && (item.value < 6.5 || item.value > 8.5))
+    );
+  }
+
+  hasLowQuality(): boolean {
+    return this.latestData.some(item =>
+      item.parameter.toLowerCase().includes('turbidity') && item.value > 5
+    );
   }
 }
