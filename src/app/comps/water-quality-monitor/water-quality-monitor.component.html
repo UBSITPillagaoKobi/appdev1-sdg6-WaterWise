@@ -13,3 +13,16 @@
     <div *ngFor="let source of displayedSources" style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; width: 250px;">
       <h3 style="margin-top: 0;">{{ source.name }}</h3>
       <p><strong>pH Level:</strong> {{ source.phLevel }}</p>
+
+
+      <p *ngIf="source.safe" style="color: green; font-weight: bold;">
+        Status: {{ source.status }} (Safe to drink)
+      </p>
+
+      <p *ngIf="!source.safe" style="color: red; font-weight: bold;">
+        Status: {{ source.status }} (Do not use!)
+      </p>
+    </div>
+
+  </div>
+</div>
