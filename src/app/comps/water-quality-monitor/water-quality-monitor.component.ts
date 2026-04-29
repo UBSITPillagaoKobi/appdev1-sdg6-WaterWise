@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
+import 
 
 @Component({
-  selector: 'app-water-quality',
-  templateUrl: './water-quality.component.html',
-  styleUrls: ['./water-quality.component.css']
+  selector: 'app-water-quality-monitor',
+  templateUrl: './water-quality-monitor.component.html',
+  styleUrls: ['/water-quality-monitor.component.css']
 })
+
 export class WaterQualityComponent {
   
-
   waterSources = [
     { name: 'Source 1', phLevel: 7.2, status: 'Good', safe: true },
     { name: 'Source 2', phLevel: 6.8, status: 'Fair', safe: true },
