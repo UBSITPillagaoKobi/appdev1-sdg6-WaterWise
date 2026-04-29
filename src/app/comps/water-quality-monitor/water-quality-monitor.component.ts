@@ -16,4 +16,16 @@ export class WaterQualityComponent {
     { name: 'Source 4', phLevel: 7.4, status: 'Good', safe: true }
   ];
 
+  currentFilter = 'All';
+
+  setFilter(status: string) {
+    this.currentFilter = status;
+  }
+
+  get displayedSources() {
+    if (this.currentFilter === 'All') {
+      return this.waterSources;
+    }
+    return this.waterSources.filter(source => source.status === this.currentFilter);
+  }
 }
