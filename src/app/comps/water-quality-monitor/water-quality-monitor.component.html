@@ -1,1 +1,15 @@
-<p>water-quality-monitor works!</p>
+<div>
+  <h2>Local Water Quality Monitor</h2>
+  <p>Select a category below to filter the local water sources.</p>
+
+  <div style="margin-bottom: 20px;">
+    <button (click)="setFilter('All')">Show All</button>
+    <button (click)="setFilter('Good')">Show Good</button>
+    <button (click)="setFilter('Poor')">Show Poor</button>
+  </div>
+
+  <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+    
+    <div *ngFor="let source of displayedSources" style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; width: 250px;">
+      <h3 style="margin-top: 0;">{{ source.name }}</h3>
+      <p><strong>pH Level:</strong> {{ source.phLevel }}</p>
