@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 =======
@@ -12,10 +13,16 @@ import { FormsModule } from '@angular/forms';
 import { WaterQualityService } from './water-quality.service';
 import { QualityLocation } from './models/water-quality.model';
 >>>>>>> fbdf207081b498eecd9f937fd40d4e58fc23728d
+=======
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { WaterQualityService, QualityLocation } from './water-quality.service';
+>>>>>>> 789babfb590d60c060e09cdfa5a3bb5929eef357
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   imports: [RouterLink],
@@ -120,6 +127,26 @@ import { QualityLocation } from './models/water-quality.model';
             <h4>🏡 Landscape Design</h4>
             <p>Replace grass with native plants, use permeable paving, and create rain gardens to manage stormwater naturally.</p>
           </article>
+=======
+  imports: [CommonModule],
+  template: `
+    <section class="dashboard-intro">
+      <h2>Dashboard</h2>
+      <p>Welcome to the Dashboard. This component demonstrates routing.</p>
+      
+      <div class="mb-3">
+        <button class="btn btn-success me-2" (click)="login()">Click here to access features</button>
+        <button class="btn btn-danger" (click)="logout()">Click here to lock the features</button>
+        <p class="mt-2">Status: {{ isAuthenticated ? 'Authenticated' : 'Not Authenticated' }}</p>
+      </div>
+    </section>
+
+    <section class="quality-panel">
+      <div class="quality-panel-header">
+        <div>
+          <h3>Live Environment Snapshot</h3>
+          <p>Data from the Open-Meteo public API for quick environment context.</p>
+>>>>>>> 789babfb590d60c060e09cdfa5a3bb5929eef357
         </div>
         
         <div class="conservation-calculator">
@@ -195,6 +222,7 @@ import { QualityLocation } from './models/water-quality.model';
 >>>>>>> fbdf207081b498eecd9f937fd40d4e58fc23728d
       </div>
     </section>
+<<<<<<< HEAD
 
     <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
   <div class="container-fluid">
@@ -223,6 +251,8 @@ import { QualityLocation } from './models/water-quality.model';
     </div>
   </div>
 </nav>
+=======
+>>>>>>> 789babfb590d60c060e09cdfa5a3bb5929eef357
   `,
   styles: [
     `
@@ -679,7 +709,32 @@ import { QualityLocation } from './models/water-quality.model';
   ]
 })
 <<<<<<< HEAD
+<<<<<<< HEAD
 export class DashboardComponent {
+=======
+export class DashboardComponent implements OnInit {
+  profileImage = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><rect width="80" height="80" fill="%230d6efd"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="36" fill="white" font-family="Arial,Helvetica,sans-serif">U</text></svg>';
+  latestData: QualityLocation[] = [];
+  loading = true;
+  error = '';
+
+  constructor(private qualityService: WaterQualityService) {}
+
+  ngOnInit(): void {
+    this.qualityService.getLatestQuality().subscribe({
+      next: (data) => {
+        this.latestData = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.error = 'Unable to load quality data. Please try again later.';
+        this.loading = false;
+      },
+    });
+  }
+
+>>>>>>> 789babfb590d60c060e09cdfa5a3bb5929eef357
   get isAuthenticated(): boolean {
     return !!localStorage.getItem('authToken');
   }
@@ -692,6 +747,7 @@ export class DashboardComponent {
   logout() {
     localStorage.removeItem('authToken');
     alert('Logged out!');
+<<<<<<< HEAD
 =======
 export class DashboardComponent implements OnInit {
   profileImage = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><rect width="80" height="80" fill="%230d6efd"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="36" fill="white" font-family="Arial,Helvetica,sans-serif">U</text></svg>';
@@ -742,5 +798,7 @@ export class DashboardComponent implements OnInit {
     return this.latestData.some(item =>
       item.parameter.toLowerCase().includes('turbidity') && item.value > 5
     );
+=======
+>>>>>>> 789babfb590d60c060e09cdfa5a3bb5929eef357
   }
 }
