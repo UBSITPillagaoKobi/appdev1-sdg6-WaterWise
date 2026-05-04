@@ -43,7 +43,6 @@ export class WaterQualityService {
       ])
     );
   }
-
   // ✅ POST request inside service
   submitWaterReport(report: WaterReport): Observable<any> {
     return this.http.post('https://jsonplaceholder.typicode.com/posts', report);

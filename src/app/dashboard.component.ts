@@ -1,45 +1,13 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-=======
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
-import { WaterQualityService, QualityLocation } from './water-quality.service';
->>>>>>> 89d88bddd60c8f96c6c7569edb76d849073e27b2
-=======
 import { FormsModule } from '@angular/forms';
-import { WaterQualityService } from './water-quality.service';
-import { QualityLocation } from './models/water-quality.model';
->>>>>>> fbdf207081b498eecd9f937fd40d4e58fc23728d
-=======
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { WaterQualityService, QualityLocation } from './water-quality.service';
->>>>>>> 789babfb590d60c060e09cdfa5a3bb5929eef357
-
+import { WaterQualityService} from './water-quality.service';
+import { QualityLocation } from './models/water-quality.model';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  imports: [RouterLink],
-  template: `
-    <section>
-      <h2>Dashboard</h2>
-      <p>Welcome to the Dashboard. This component demonstrates routing.</p>
-      
-      <div class="mb-3">
-        <button class="btn btn-success me-2" (click)="login()">Login to Access Features</button>
-        <button class="btn btn-danger" (click)="logout()">Logout</button>
-        <p class="mt-2">Status: {{ isAuthenticated ? 'Authenticated' : 'Not Authenticated' }}</p>
-=======
-  imports: [CommonModule],
-=======
-  imports: [CommonModule, FormsModule],
->>>>>>> fbdf207081b498eecd9f937fd40d4e58fc23728d
+  imports: [RouterLink, CommonModule, FormsModule],
   template: `
     <nav class="dashboard-navbar">
       <div class="navbar-brand">WaterWise</div>
@@ -127,9 +95,9 @@ import { WaterQualityService, QualityLocation } from './water-quality.service';
             <h4>🏡 Landscape Design</h4>
             <p>Replace grass with native plants, use permeable paving, and create rain gardens to manage stormwater naturally.</p>
           </article>
-=======
-  imports: [CommonModule],
-  template: `
+        </div>
+      </div>
+    </section>
     <section class="dashboard-intro">
       <h2>Dashboard</h2>
       <p>Welcome to the Dashboard. This component demonstrates routing.</p>
@@ -146,7 +114,6 @@ import { WaterQualityService, QualityLocation } from './water-quality.service';
         <div>
           <h3>Live Environment Snapshot</h3>
           <p>Data from the Open-Meteo public API for quick environment context.</p>
->>>>>>> 789babfb590d60c060e09cdfa5a3bb5929eef357
         </div>
         
         <div class="conservation-calculator">
@@ -164,11 +131,8 @@ import { WaterQualityService, QualityLocation } from './water-quality.service';
       </div>
     </section>
 
-<<<<<<< HEAD
       <div *ngIf="!loading && !error && latestData.length === 0" class="status-message">
         No quality readings available right now.
->>>>>>> 89d88bddd60c8f96c6c7569edb76d849073e27b2
-=======
     <section *ngIf="activeSection === 'quality'" class="content-section">
       <div class="quality-panel">
         <div class="quality-panel-header">
@@ -219,11 +183,8 @@ import { WaterQualityService, QualityLocation } from './water-quality.service';
             </div>
           </div>
         </div>
->>>>>>> fbdf207081b498eecd9f937fd40d4e58fc23728d
       </div>
     </section>
-<<<<<<< HEAD
-
     <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="navbarColor01">
@@ -251,8 +212,6 @@ import { WaterQualityService, QualityLocation } from './water-quality.service';
     </div>
   </div>
 </nav>
-=======
->>>>>>> 789babfb590d60c060e09cdfa5a3bb5929eef357
   `,
   styles: [
     `
@@ -708,47 +667,6 @@ import { WaterQualityService, QualityLocation } from './water-quality.service';
     `
   ]
 })
-<<<<<<< HEAD
-<<<<<<< HEAD
-export class DashboardComponent {
-=======
-export class DashboardComponent implements OnInit {
-  profileImage = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><rect width="80" height="80" fill="%230d6efd"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="36" fill="white" font-family="Arial,Helvetica,sans-serif">U</text></svg>';
-  latestData: QualityLocation[] = [];
-  loading = true;
-  error = '';
-
-  constructor(private qualityService: WaterQualityService) {}
-
-  ngOnInit(): void {
-    this.qualityService.getLatestQuality().subscribe({
-      next: (data) => {
-        this.latestData = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error(err);
-        this.error = 'Unable to load quality data. Please try again later.';
-        this.loading = false;
-      },
-    });
-  }
-
->>>>>>> 789babfb590d60c060e09cdfa5a3bb5929eef357
-  get isAuthenticated(): boolean {
-    return !!localStorage.getItem('authToken');
-  }
-
-  login() {
-    localStorage.setItem('authToken', 'authenticated');
-    alert('Logged in! You can now access the protected routes.');
-  }
-
-  logout() {
-    localStorage.removeItem('authToken');
-    alert('Logged out!');
-<<<<<<< HEAD
-=======
 export class DashboardComponent implements OnInit {
   profileImage = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><rect width="80" height="80" fill="%230d6efd"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="36" fill="white" font-family="Arial,Helvetica,sans-serif">U</text></svg>';
   latestData: QualityLocation[] = [];
@@ -773,9 +691,21 @@ export class DashboardComponent implements OnInit {
         this.loading = false;
       },
     });
->>>>>>> 89d88bddd60c8f96c6c7569edb76d849073e27b2
   }
 
+  get isAuthenticated(): boolean {
+    return !!localStorage.getItem('authToken');
+  }
+
+  login() {
+    localStorage.setItem('authToken', 'authenticated');
+    alert('Logged in! You can now access the protected routes.');
+  }
+
+  logout() {
+    localStorage.removeItem('authToken');
+    alert('Logged out!');
+  }
   setActiveSection(section: string): void {
     this.activeSection = section;
   }
@@ -798,7 +728,5 @@ export class DashboardComponent implements OnInit {
     return this.latestData.some(item =>
       item.parameter.toLowerCase().includes('turbidity') && item.value > 5
     );
-=======
->>>>>>> 789babfb590d60c060e09cdfa5a3bb5929eef357
   }
 }
