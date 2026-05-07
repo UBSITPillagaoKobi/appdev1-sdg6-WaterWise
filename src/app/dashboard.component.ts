@@ -7,7 +7,7 @@ import { QualityLocation } from './models/water-quality.model';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule], 
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
@@ -30,20 +30,30 @@ export class DashboardComponent implements OnInit {
 
   constructor(private qualityService: WaterQualityService) {}
 
-  latestData$!: Observable<QualityLocation[]>;
-
-  constructor(private qualityService: WaterQualityService) {}
-
-ngOnInit(): void {
+  ngOnInit(): void {
     this.latestData$ = this.qualityService.getLatestQuality().pipe(
       catchError(err => {
         this.error.set('Unable to load quality data. Please try again later.');
-        return of([]);
+        return of([]); 
       })
     );
   }
 
-setActiveSection(section: string): void {
+  get isAuthenticated(): boolean {
+    return !!localStorage.getItem('authToken');
+  }
+
+  login() {
+    localStorage.setItem('authToken', 'authenticated');
+    alert('Logged in! You can now access the protected routes.');
+  }
+
+  logout() {
+    localStorage.removeItem('authToken');
+    alert('Logged out!');
+  }
+
+  setActiveSection(section: string): void {
     this.activeSection.set(section);
   }
 
