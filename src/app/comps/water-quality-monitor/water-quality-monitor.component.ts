@@ -1,11 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-water-quality-monitor',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './water-quality-monitor.component.html',
-  styleUrls: ['/water-quality-monitor.component.css']
+  styleUrls: ['./water-quality-monitor.component.css']
 })
-export class WaterQualityComponent {
+
+export class WaterQualityMonitorComponent {
   
   waterSources = [
     { name: 'Source 1', phLevel: 7.2, status: 'Good', safe: true },
