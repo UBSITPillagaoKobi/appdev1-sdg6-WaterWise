@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 export class WaterQualityMonitorComponent {
   
   waterSources = [
-    { name: 'Source 1', phLevel: 7.2, status: 'Good', safe: true },
+    { name: 'Source 1', phLevel: 7.2, status: 'GoodYeah', safe: true },
     { name: 'Source 2', phLevel: 6.8, status: 'Fair', safe: true },
     { name: 'Source 3', phLevel: 5.5, status: 'Poor', safe: false },
     { name: 'Source 4', phLevel: 7.4, status: 'Good', safe: true }
