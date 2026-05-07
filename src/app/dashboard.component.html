@@ -1,107 +1,19 @@
-<nav class="dashboard-navbar">
-  <div class="navbar-brand">WaterWise</div>
-
-  <ul class="nav-links">
-    <li class="nav-item">
-      <button class="nav-link" [class.active]="activeSection === 'sanitation'" (click)="setActiveSection('sanitation')">Sanitation Access</button>
-    </li>
-    <li class="nav-item">
-      <button class="nav-link" [class.active]="activeSection === 'conservation'" (click)="setActiveSection('conservation')">Conservation Guide</button>
-    </li>
-    <li class="nav-item">
-      <button class="nav-link" [class.active]="activeSection === 'quality'" (click)="setActiveSection('quality')">Quality Monitor</button>
-    </li>
-  </ul>
-
-  <div class="search-group">
-    <form class="search-form" role="search">
-      <input class="search-input" type="search" placeholder="Search" aria-label="Search" />
-      <button class="search-button" type="submit">Search</button>
-    </form>
-
-    <button type="button" class="profile-avatar" aria-label="Profile">
-      <img [src]="profileImage" alt="Profile avatar" />
-    </button>
+<div class="conservation-calculator">
+  <h4>💧 Water </h4>
+  <p>Estimate your potential water savings:</p>
+  <div class="calculator-inputs">
+    <label>Daily shower time (minutes): 
+      <input type="number" [value]="showerTime()" (input)="updateShowerTime($event)" min="1" max="30" /> 
+    </label>
+    <label>Showers per week: 
+      <input type="number" [value]="showersPerWeek()" (input)="updateShowersPerWeek($event)" min="1" max="21" /> 
+    </label>
   </div>
-</nav>
-
-<section *ngIf="activeSection === 'sanitation'" class="content-section">
-  <div class="panel">
-    <h3>Sanitation Access</h3>
-    <p>Information about sanitation access and facilities in your area.</p>
-    <div class="sanitation-stats">
-      <div class="stat-card">
-        <h4>Access Rate</h4>
-        <span class="stat-value">85%</span>
-        <p>Population with access to improved sanitation</p>
-      </div>
-      <div class="stat-card">
-        <h4>Facilities</h4>
-        <span class="stat-value">1,250</span>
-        <p>Public sanitation facilities available</p>
-      </div>
-      <div class="stat-card">
-        <h4>Coverage</h4>
-        <span class="stat-value">92%</span>
-        <p>Area covered by sanitation services</p>
-      </div>
-    </div>
+  <div *ngIf="savingsResult() > 0" class="savings-result">
+    <p>By reducing shower time to 5 minutes, you could save approximately <strong>{{ savingsResult() }} gallons per week</strong>!</p>
   </div>
-</section>
-
-<section *ngIf="activeSection === 'conservation'" class="content-section">
-  <div class="panel">
-    <h3>Water Conservation Guide</h3>
-    <p>Practical tips and strategies to conserve water in your daily life.</p>
-    
-    <div class="conservation-tips">
-      <article class="tip-card">
-        <h4>🚿 Shower Smarter</h4>
-        <p>Take shorter showers (5-10 minutes) and install low-flow showerheads to reduce water usage by up to 50%.</p>
-      </article>
-      
-      <article class="tip-card">
-        <h4>🍽️ Kitchen Efficiency</h4>
-        <p>Run full loads in dishwashers and washing machines. Fix leaky faucets immediately - they can waste 3,000 gallons per year.</p>
-      </article>
-      
-      <article class="tip-card">
-        <h4>🌱 Garden Wisely</h4>
-        <p>Use drought-resistant plants, mulch to retain soil moisture, and water lawns/gardens during cooler parts of the day.</p>
-      </article>
-      
-      <article class="tip-card">
-        <h4>🚰 Faucet Habits</h4>
-        <p>Turn off faucets while brushing teeth or soaping up. Collect rainwater for outdoor use when possible.</p>
-      </article>
-      
-      <article class="tip-card">
-        <h4>🔧 Home Improvements</h4>
-        <p>Install dual-flush toilets and water-efficient appliances. Check for leaks regularly using your water meter.</p>
-      </article>
-      
-      <article class="tip-card">
-        <h4>🏡 Landscape Design</h4>
-        <p>Replace grass with native plants, use permeable paving, and create rain gardens to manage stormwater naturally.</p>
-      </article>
-    </div>
-    
-    <div class="conservation-calculator">
-      <h4>💧 Water Savings Calculator</h4>
-      <p>Estimate your potential water savings:</p>
-      <div class="calculator-inputs">
-        <label>Daily shower time (minutes): <input type="number" [(ngModel)]="showerTime" min="1" max="30" /> </label>
-        <label>Showers per week: <input type="number" [(ngModel)]="showersPerWeek" min="1" max="21" /> </label>
-        <button (click)="calculateSavings()" class="calc-button">Calculate Savings</button>
-      </div>
-      <div *ngIf="savingsResult" class="savings-result">
-        <p>By reducing shower time to 5 minutes, you could save approximately <strong>{{ savingsResult }} gallons per week</strong>!</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section *ngIf="activeSection === 'quality'" class="content-section">
+</div>
+<section *ngIf="activeSection() === 'quality'" class="content-section">
   <div class="quality-panel">
     <div class="quality-panel-header">
       <div>
@@ -111,45 +23,52 @@
       <span class="quality-tag">Open-Meteo</span>
     </div>
 
-    <div *ngIf="loading" class="status-message">⏳ Loading latest quality data...</div>
-    <div *ngIf="error" class="status-message error">{{ error }}</div>
+    <ng-container *ngIf="latestData$ | async as latestData; else loadingTpl">
+      
+      <div class="quality-grid" *ngIf="latestData.length > 0 && !error()">
+        <article *ngFor="let item of latestData" class="quality-card">
+          <div class="quality-card-top">
+            <span class="quality-location">{{ item.location }}</span>
+            <span class="quality-country">{{ item.country }}</span>
+          </div>
+          <p class="quality-city">{{ item.city }}</p>
+          <div class="quality-value-row">
+            <span class="quality-value">{{ item.value }}</span>
+            <span class="quality-unit">{{ item.unit }}</span>
+          </div>
+          <div class="quality-parameter">{{ item.parameter }}</div>
+          <div class="quality-updated">Updated: {{ item.lastUpdated | date:'short' }}</div>
+        </article>
+      </div>
 
-    <div class="quality-grid" *ngIf="!loading && !error && latestData.length > 0">
-      <article *ngFor="let item of latestData" class="quality-card">
-        <div class="quality-card-top">
-          <span class="quality-location">{{ item.location }}</span>
-          <span class="quality-country">{{ item.country }}</span>
+      <div *ngIf="latestData.length === 0 && !error()" class="status-message">
+        No quality readings available right now.
+      </div>
+      
+      <div class="quality-alerts" *ngIf="latestData.length > 0 && !error()">
+        <h4>⚠️ Quality Alerts</h4>
+        <div class="alert-card" *ngIf="hasHighPollution(latestData)">
+          <span class="alert-icon">🚨</span>
+          <div>
+            <h5>High Pollution Levels Detected</h5>
+            <p>Water quality parameters exceed safe limits in some areas. Consider using filtration systems.</p>
+          </div>
         </div>
-        <p class="quality-city">{{ item.city }}</p>
-        <div class="quality-value-row">
-          <span class="quality-value">{{ item.value }}</span>
-          <span class="quality-unit">{{ item.unit }}</span>
-        </div>
-        <div class="quality-parameter">{{ item.parameter }}</div>
-        <div class="quality-updated">Updated: {{ item.lastUpdated | date:'short' }}</div>
-      </article>
-    </div>
-
-    <div *ngIf="!loading && !error && latestData.length === 0" class="status-message">
-      No quality readings available right now.
-    </div>
-    
-    <div class="quality-alerts" *ngIf="!loading && !error">
-      <h4>⚠️ Quality Alerts</h4>
-      <div class="alert-card" *ngIf="hasHighPollution()">
-        <span class="alert-icon">🚨</span>
-        <div>
-          <h5>High Pollution Levels Detected</h5>
-          <p>Water quality parameters exceed safe limits in some areas. Consider using filtration systems.</p>
+        <div class="alert-card" *ngIf="hasLowQuality(latestData)">
+          <span class="alert-icon">⚡</span>
+          <div>
+            <h5>Seasonal Quality Changes</h5>
+            <p>Monitor water quality during rainy seasons as runoff may affect local sources.</p>
+          </div>
         </div>
       </div>
-      <div class="alert-card" *ngIf="hasLowQuality()">
-        <span class="alert-icon">⚡</span>
-        <div>
-          <h5>Seasonal Quality Changes</h5>
-          <p>Monitor water quality during rainy seasons as runoff may affect local sources.</p>
-        </div>
-      </div>
-    </div>
+
+    </ng-container>
+
+    <ng-template #loadingTpl>
+      <div *ngIf="!error()" class="status-message">⏳ Loading latest quality data...</div>
+    </ng-template>
+
+    <div *ngIf="error()" class="status-message error">{{ error() }}</div>
   </div>
 </section>
