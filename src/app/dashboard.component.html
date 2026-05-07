@@ -1,18 +1,18 @@
 <div class="conservation-calculator">
-  <h4>💧 Water </h4>
-  <p>Estimate your potential water savings:</p>
-  <div class="calculator-inputs">
-    <label>Daily shower time (minutes): 
-      <input type="number" [value]="showerTime()" (input)="updateShowerTime($event)" min="1" max="30" /> 
-    </label>
-    <label>Showers per week: 
-      <input type="number" [value]="showersPerWeek()" (input)="updateShowersPerWeek($event)" min="1" max="21" /> 
-    </label>
-  </div>
-  <div *ngIf="savingsResult() > 0" class="savings-result">
-    <p>By reducing shower time to 5 minutes, you could save approximately <strong>{{ savingsResult() }} gallons per week</strong>!</p>
-  </div>
-</div>
+      <h4>💧 Water Savings Calculator</h4>
+      <p>Estimate your potential water savings:</p>
+      <div class="calculator-inputs">
+        <label>Daily shower time (minutes): 
+          <input type="number" [value]="showerTime()" (input)="updateShowerTime($event)" min="1" max="30" /> 
+        </label>
+        <label>Showers per week: 
+          <input type="number" [value]="showersPerWeek()" (input)="updateShowersPerWeek($event)" min="1" max="21" /> 
+        </label>
+        </div>
+      <div *ngIf="savingsResult() > 0" class="savings-result">
+        <p>By reducing shower time to 5 minutes, you could save approximately <strong>{{ savingsResult() }} gallons per week</strong>!</p>
+      </div>
+    </div>
 <section *ngIf="activeSection() === 'quality'" class="content-section">
   <div class="quality-panel">
     <div class="quality-panel-header">

@@ -7,7 +7,7 @@ import { QualityLocation } from './models/water-quality.model';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule], 
+  imports: [CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
@@ -30,16 +30,20 @@ export class DashboardComponent implements OnInit {
 
   constructor(private qualityService: WaterQualityService) {}
 
-  ngOnInit(): void {
+  latestData$!: Observable<QualityLocation[]>;
+
+  constructor(private qualityService: WaterQualityService) {}
+
+ngOnInit(): void {
     this.latestData$ = this.qualityService.getLatestQuality().pipe(
       catchError(err => {
         this.error.set('Unable to load quality data. Please try again later.');
-        return of([]); 
+        return of([]);
       })
     );
   }
 
-  setActiveSection(section: string): void {
+setActiveSection(section: string): void {
     this.activeSection.set(section);
   }
 
