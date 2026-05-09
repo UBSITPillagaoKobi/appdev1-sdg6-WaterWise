@@ -14,8 +14,8 @@ export interface PublicFacility {
   selector: 'app-facility-card',
   standalone: true,
   imports: [CommonModule],
-  template: `./facility-card.html`,
-  styles: `./facility-card.css`
+  templateUrl: './facility-card.html',
+  styleUrls: ['./facility-card.css']
 })
 export class FacilityCardComponent {
   @Input() facility!: PublicFacility;
