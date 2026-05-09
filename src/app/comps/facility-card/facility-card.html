@@ -1,0 +1,16 @@
+<div class="facility-card shadow-sm">
+      <div class="card-header">
+        <h4>{{ facility.name }}</h4>
+        <span [class]="facility.status === 'Open' ? 'badge-open' : 'badge-closed'">
+          {{ facility.status }}
+        </span>
+      </div>
+      <div class="card-body">
+        <p><strong>Location:</strong> {{ facility.location }}</p>
+        <p><strong>Handwashing:</strong> {{ facility.hasHandwashing ? 'Available' : 'Not Available' }}</p>
+        <p><strong>🧹 Maintenance:</strong> {{ facility.maintenanceSchedule }}</p>
+      </div>
+      <div class="card-footer">
+        <button class="btn-outline-cyan" (click)="notifyParent()">View Directions</button>
+      </div>
+    </div>

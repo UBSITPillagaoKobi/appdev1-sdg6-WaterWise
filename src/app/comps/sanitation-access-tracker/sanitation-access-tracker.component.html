@@ -1,1 +1,15 @@
 <p>sanitation-access-tracker works!</p>
+<div class="directory-container" style="padding: 20px;">
+  <h2 style="color: #1a5f7a;">Baguio City Public Sanitation Directory</h2>
+  <p>Find clean, accessible, and safe public restrooms around the Summer Capital.</p>
+
+  <div class="cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+    
+    <app-facility-card 
+      *ngFor="let item of facilities" 
+      [facility]="item" 
+      (viewDirections)="handleViewDirections($event)">
+    </app-facility-card>
+
+  </div>
+</div>
