@@ -35,10 +35,50 @@ export class SanitationAccessTrackerComponent {
       hasHandwashing: true,
       maintenanceSchedule: 'Daily at 12:00 PM',
       status: 'Closed for Cleaning'
-    }
+    },
+    {
+  id: 4,
+  name: 'Session Road Public Comfort Room',
+  location: 'Lower Session Road (Near Post Office)',
+  hasHandwashing: true,
+  maintenanceSchedule: 'Every 1 Hour',
+  status: 'Open'
+},
+{
+  id: 5,
+  name: 'Mines View Park Facility',
+  location: 'Observation Deck Entrance',
+  hasHandwashing: true,
+  maintenanceSchedule: 'Every 3 Hours',
+  status: 'Closed for Cleaning'
+},
+{
+  id: 6,
+  name: 'Botanical Garden Restroom',
+  location: 'Near Japanese-Philippine Friendship Garden',
+  hasHandwashing: true,
+  maintenanceSchedule: 'Daily at 8:00 AM / 4:00 PM',
+  status: 'Open'
+},
+{
+  id: 7,
+  name: 'Wright Park Handwashing Station',
+  location: 'Near Horse Riding Area',
+  hasHandwashing: true,
+  maintenanceSchedule: 'Every 4 Hours',
+  status: 'Open'
+},
+{
+  id: 8,
+  name: 'Baguio Public Market Block 4',
+  location: 'Meat and Fish Section Basement',
+  hasHandwashing: true,
+  maintenanceSchedule: 'Every 30 Minutes',
+  status: 'Open'
+}
   ];
 
   handleViewDirections(facilityName: string) {
-    alert(`Routing you to Apple Maps / Google Maps for: ${facilityName} in Baguio City...`);
+    alert(`Routing you toGoogle Maps for: ${facilityName} in Baguio City...`);
   }
 }
