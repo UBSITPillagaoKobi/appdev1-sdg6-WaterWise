@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal, computed } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Observable, catchError, of } from 'rxjs';
 import { WaterQualityService } from './water-quality.service';
 import { QualityLocation } from './models/water-quality.model';
@@ -8,7 +8,7 @@ import { QualityLocation } from './models/water-quality.model';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule], 
+  imports: [CommonModule, RouterModule], 
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })

@@ -1,17 +1,15 @@
 <nav class="dashboard-navbar">
-  <div class="navbar-brand">WaterWise</div>
+  <div class="navbar-brand" routerLink="/dashboard" style="cursor: pointer;">WaterWise</div>
 
-
-  
   <ul class="nav-links">
     <li class="nav-item">
-      <button class="nav-link" [class.active]="activeSection() === 'sanitation'" (click)="setActiveSection('sanitation')" [disabled]="!isAuthenticated">Sanitation Access</button>
+      <button class="nav-link" routerLink="/sanitation" routerLinkActive="active">Sanitation Access</button>
     </li>
     <li class="nav-item">
-      <button class="nav-link" [class.active]="activeSection() === 'conservation'" (click)="setActiveSection('conservation')" [disabled]="!isAuthenticated">Conservation Guide</button>
+      <button class="nav-link" routerLink="/water-conservation" routerLinkActive="active">Conservation Guide</button>
     </li>
     <li class="nav-item">
-      <button class="nav-link" [class.active]="activeSection() === 'quality'" (click)="setActiveSection('quality')" [disabled]="!isAuthenticated">Quality Monitor</button>
+      <button class="nav-link" routerLink="/water-quality" routerLinkActive="active">Quality Monitor</button>
     </li>
   </ul>
 
@@ -21,10 +19,9 @@
       <button class="search-button" type="submit">Search</button>
     </form>
 
-  <button type="button" class="profile-avatar" aria-label="Profile" (click)="goToProfile()">
-  <img [src]="profileImage" alt="Profile avatar" />
-</button>
-
+    <button type="button" class="profile-avatar" aria-label="Profile" (click)="goToProfile()">
+      <img [src]="profileImage" alt="Profile avatar" />
+    </button>
 <button class="btn btn-primary" (click)="login()" *ngIf="!isAuthenticated">
   Login
 </button>
