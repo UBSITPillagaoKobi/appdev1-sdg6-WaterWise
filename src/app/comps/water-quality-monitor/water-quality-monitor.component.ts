@@ -17,7 +17,15 @@ export class WaterQualityMonitorComponent implements OnInit {
     { name: 'Burnham Park Source', phLevel: 7.2, status: 'Good', safe: true },
     { name: 'Camp John Hay Stream', phLevel: 6.8, status: 'Fair', safe: true },
     { name: 'Balili River Segment', phLevel: 5.5, status: 'Poor', safe: false },
-    { name: 'Asin Road Spring', phLevel: 7.4, status: 'Good', safe: true }
+    { name: 'Asin Road Spring', phLevel: 7.4, status: 'Good', safe: true },
+    { name: 'Irisan Communal Well', phLevel: 6.5, status: 'Fair', safe: true },
+    { name: 'Guadalupe Spring (Asin)', phLevel: 7.8, status: 'Good', safe: true },
+    { name: 'Balili River (La Trinidad Border)', phLevel: 4.8, status: 'Poor', safe: false },
+    { name: 'Teacher’s Camp Stream', phLevel: 6.2, status: 'Fair', safe: true },
+    { name: 'Loakan Airport Perimeter Source', phLevel: 7.1, status: 'Good', safe: true },
+    { name: 'Baguio Dairy Farm Creek', phLevel: 5.9, status: 'Poor', safe: false },
+    { name: 'Magsaysay District Supply', phLevel: 7.0, status: 'Good', safe: true },
+    { name: 'Lucban Primary Spring', phLevel: 6.9, status: 'Fair', safe: true }
   ];
 
   currentFilter = 'All';

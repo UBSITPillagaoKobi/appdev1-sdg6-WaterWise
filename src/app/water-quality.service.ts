@@ -13,20 +13,32 @@ export class WaterQualityService {
     return this.http.get<WeatherApiResponse>(this.apiUrl).pipe(
       map(response => [
         {
-          location: 'Station A', country: 'PH', city: 'Kidapawan',
-          value: response.current.temperature_2m, unit: '°C',
-          parameter: 'Temperature', lastUpdated: new Date().toISOString()
-        },
-        {
-          location: 'Station B', country: 'PH', city: 'Kidapawan',
-          value: response.current.relative_humidity_2m, unit: '%',
-          parameter: 'Humidity', lastUpdated: new Date().toISOString()
-        },
-        {
-          location: 'Station C', country: 'PH', city: 'Kidapawan',
-          value: response.current.precipitation, unit: 'mm',
-          parameter: 'Precipitation', lastUpdated: new Date().toISOString()
-        }
+  location: 'South Drive Monitoring Station',
+  country: 'PH',
+  city: 'Baguio City',
+  value: response.current.temperature_2m,
+  unit: '°C',
+  parameter: 'Ambient Temperature',
+  lastUpdated: new Date().toISOString()
+},
+{
+  location: 'Santo Tomas Reservoir Intake',
+  country: 'PH',
+  city: 'Baguio City',
+  value: response.current.relative_humidity_2m,
+  unit: '%',
+  parameter: 'Atmospheric Humidity',
+  lastUpdated: new Date().toISOString()
+},
+{
+  location: 'Burnham Lake Drainage Outlet',
+  country: 'PH',
+  city: 'Baguio City',
+  value: response.current.precipitation,
+  unit: 'mm',
+  parameter: 'Surface Runoff (Precipitation)',
+  lastUpdated: new Date().toISOString()
+}
       ]),
       catchError(error => {
         console.error('API Error:', error);
