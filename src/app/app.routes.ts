@@ -11,11 +11,12 @@ import { unsavedChangesGuard } from './guards/unsaved-changes.guard';
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'sanitation', component: SanitationAccessTrackerComponent },
-  { path: 'water-conservation', component: WaterConservationGuideComponent },
-  { path: 'water-quality', component: WaterQualityMonitorComponent },
+  
+  { path: 'sanitation', component: SanitationAccessTrackerComponent, canActivate: [AuthGuard] },
+  { path: 'water-conservation', component: WaterConservationGuideComponent, canActivate: [AuthGuard], canDeactivate: [unsavedChangesGuard] },
+  { path: 'water-quality', component: WaterQualityMonitorComponent, canActivate: [AuthGuard] },
+  { path: 'facility/:id', component: FacilityDetailComponent, canActivate: [AuthGuard] }, 
+  
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'facility/:id', component: FacilityDetailComponent }, 
-  { path: 'water-conservation', component: WaterConservationGuideComponent, canDeactivate: [unsavedChangesGuard] },
   { path: '**', redirectTo: '/dashboard' }
 ];

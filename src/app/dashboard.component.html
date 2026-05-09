@@ -12,8 +12,10 @@
     </li>
   </ul>
 
-  <div class="search-group">
-    <form class="search-form" role="search">
+  <div class="search-group" style="display: flex; align-items: center; gap: 15px;">
+    
+
+    <form class="search-form" role="search" style="margin: 0;">
       <input class="search-input" type="search" placeholder="Search" aria-label="Search" />
       <button class="search-button" type="submit">Search</button>
     </form>
@@ -21,13 +23,13 @@
     <button type="button" class="profile-avatar" aria-label="Profile" (click)="goToProfile()">
       <img [src]="profileImage" alt="Profile avatar" />
     </button>
-<button class="btn btn-primary" (click)="login()" *ngIf="!isAuthenticated">
-  Login
-</button>
-<button class="btn btn-secondary" (click)="logout()" *ngIf="isAuthenticated">
-  Logout
-</button>
 
+    <button *ngIf="!isAuthenticated" (click)="login()" style="padding: 8px 16px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
+      Login
+    </button>
+    <button *ngIf="isAuthenticated" (click)="logout()" style="padding: 8px 16px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
+      Logout
+    </button>
   </div>
 </nav>
 
