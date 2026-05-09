@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
 import { WaterQualityService } from '../../water-quality.service';
 import { QualityLocation } from '../../models/water-quality.model';
@@ -23,9 +23,9 @@ export class WaterQualityMonitorComponent implements OnInit {
   currentFilter = 'All';
 
   latestData$!: Observable<QualityLocation[]>;
-  error = signal(''); // Required Signal sa Check-in 3
+  error = signal(''); 
 
-  constructor(private qualityService: WaterQualityService) {}
+  private qualityService = inject(WaterQualityService);
 
   ngOnInit(): void {
     this.latestData$ = this.qualityService.getLatestQuality().pipe(
