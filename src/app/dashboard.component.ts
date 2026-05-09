@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal, computed } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, catchError, of } from 'rxjs';
 import { WaterQualityService } from './water-quality.service';
 import { QualityLocation } from './models/water-quality.model';
@@ -28,7 +29,10 @@ export class DashboardComponent implements OnInit {
 
   latestData$!: Observable<QualityLocation[]>;
 
-  constructor(private qualityService: WaterQualityService) {}
+  constructor(
+    private qualityService: WaterQualityService, 
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.latestData$ = this.qualityService.getLatestQuality().pipe(
@@ -37,6 +41,10 @@ export class DashboardComponent implements OnInit {
         return of([]); 
       })
     );
+  }
+
+  goToProfile() {
+    this.router.navigate(['/profile']); 
   }
 
   get isAuthenticated(): boolean {

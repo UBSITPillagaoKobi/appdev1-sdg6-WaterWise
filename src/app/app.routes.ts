@@ -15,5 +15,6 @@ export const routes: Routes = [
 	{ path: 'water-conservation', component: WaterConservationGuideComponent, canActivate: [AuthGuard] },
 	{ path: 'sanitation', component: SanitationAccessTrackerComponent, canActivate: [AuthGuard] },
 	{ path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+	
 	{ path: '**', redirectTo: '/dashboard' }
 ];
