@@ -6,6 +6,7 @@ import { WaterQualityMonitorComponent } from './comps/water-quality-monitor/wate
 import { ProfileComponent } from './comps/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { FacilityDetailComponent } from './comps/facility-detail/facility-detail'; 
+import { unsavedChangesGuard } from './guards/unsaved-changes.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -15,5 +16,6 @@ export const routes: Routes = [
   { path: 'water-quality', component: WaterQualityMonitorComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'facility/:id', component: FacilityDetailComponent }, 
+  { path: 'water-conservation', component: WaterConservationGuideComponent, canDeactivate: [unsavedChangesGuard] },
   { path: '**', redirectTo: '/dashboard' }
 ];
