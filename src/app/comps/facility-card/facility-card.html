@@ -10,7 +10,11 @@
         <p><strong>Handwashing:</strong> {{ facility.hasHandwashing ? 'Available' : 'Not Available' }}</p>
         <p><strong>🧹 Maintenance:</strong> {{ facility.maintenanceSchedule }}</p>
       </div>
-      <div class="card-footer">
+      <div class="facility-card shadow-sm">
+      <div class="card-footer" style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 15px;">
+        <button class="btn-outline-cyan" [routerLink]="['/facility', facility.id]">View Details</button>
+        
         <button class="btn-outline-cyan" (click)="notifyParent()">View Directions</button>
       </div>
+    </div>
     </div>

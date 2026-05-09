@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router'
 
 export interface PublicFacility {
   id: number;
@@ -13,7 +14,7 @@ export interface PublicFacility {
 @Component({
   selector: 'app-facility-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './facility-card.html',
   styleUrls: ['./facility-card.css']
 })
