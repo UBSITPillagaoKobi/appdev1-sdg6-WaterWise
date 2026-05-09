@@ -1,28 +1,84 @@
-<div>
-  <h2>Local Water Quality Monitor</h2>
-  <p>Select a category below to filter the local water sources.</p>
+<div style="padding: 20px;">
+  
+  <div style="margin-bottom: 40px;">
+    <h2 style="color: #1a5f7a;">Local Water Quality Monitor</h2>
+    <p>Select a category below to filter the local Baguio water sources.</p>
 
-  <div style="margin-bottom: 20px;">
-    <button (click)="setFilter('All')">Show All</button>
-    <button (click)="setFilter('Good')">Show Good</button>
-    <button (click)="setFilter('Poor')">Show Poor</button>
+    <div style="margin-bottom: 20px;">
+      <button class="btn-filter" (click)="setFilter('All')" [style.fontWeight]="currentFilter === 'All' ? 'bold' : 'normal'">Show All</button>
+      <button class="btn-filter" (click)="setFilter('Good')" [style.fontWeight]="currentFilter === 'Good' ? 'bold' : 'normal'">Show Good</button>
+      <button class="btn-filter" (click)="setFilter('Poor')" [style.fontWeight]="currentFilter === 'Poor' ? 'bold' : 'normal'">Show Poor</button>
+    </div>
+
+    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+      <div *ngFor="let source of displayedSources" style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; width: 250px; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <h3 style="margin-top: 0; color: #1a5f7a;">{{ source.name }}</h3>
+        <p><strong>pH Level:</strong> {{ source.phLevel }}</p>
+
+        <p *ngIf="source.safe" style="color: #28a745; font-weight: bold;">
+          Status: {{ source.status }} (Safe)
+        </p>
+        <p *ngIf="!source.safe" style="color: #dc3545; font-weight: bold;">
+          Status: {{ source.status }} (Unsafe)
+        </p>
+      </div>
+    </div>
   </div>
 
-  <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-    
-    <div *ngFor="let source of displayedSources" style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; width: 250px;">
-      <h3 style="margin-top: 0;">{{ source.name }}</h3>
-      <p><strong>pH Level:</strong> {{ source.phLevel }}</p>
+  <hr style="border-top: 2px dashed #26BDE2; margin: 30px 0;">
 
-
-      <p *ngIf="source.safe" style="color: green; font-weight: bold;">
-        Status: {{ source.status }} (Safe to drink)
-      </p>
-
-      <p *ngIf="!source.safe" style="color: red; font-weight: bold;">
-        Status: {{ source.status }} (Do not drink)
-      </p>
+  <div class="quality-panel">
+    <div class="quality-panel-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <div>
+        <h3 style="color: #1a5f7a;">Live Environment Snapshot</h3>
+        <p>Data from the Open-Meteo public API for quick environment context.</p>
+      </div>
+      <span class="quality-tag" style="background: #26BDE2; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem;">Open-Meteo API</span>
     </div>
+
+    <div *ngIf="error()" class="error-banner" style="color: red; margin-bottom: 15px;">
+      {{ error() }}
+    </div>
+
+    <ng-container *ngIf="latestData$ | async as latestData; else loadingTpl">
+      
+      <div class="quality-grid" *ngIf="latestData.length > 0 && !error()" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+        <article *ngFor="let item of latestData" class="quality-card shadow-sm" style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #1a5f7a;">
+          <div class="quality-card-top" style="display: flex; justify-content: space-between; font-size: 0.85rem; color: gray;">
+            <span class="quality-location">{{ item.location }}</span>
+            <span class="quality-country">{{ item.country }}</span>
+          </div>
+          <p class="quality-city" style="font-weight: bold; margin: 5px 0;">{{ item.city }}</p>
+          <div class="quality-value-row" style="font-size: 1.5rem; color: #26BDE2;">
+            <span class="quality-value">{{ item.value }}</span>
+            <span class="quality-unit" style="font-size: 1rem;">{{ item.unit }}</span>
+          </div>
+          <div class="quality-parameter" style="margin-top: 5px;">{{ item.parameter }}</div>
+          <div class="quality-updated" style="font-size: 0.8rem; color: gray; margin-top: 10px;">Updated: {{ item.lastUpdated | date:'shortTime' }}</div>
+        </article>
+      </div>
+
+      <div *ngIf="latestData.length === 0 && !error()" class="status-message">
+        No quality readings available right now.
+      </div>
+      
+      <div class="quality-alerts" *ngIf="latestData.length > 0 && !error()" style="margin-top: 25px; background: #fff3cd; padding: 15px; border-radius: 8px;">
+        <h4 style="margin-top: 0; color: #856404;">⚠️ Quality Alerts</h4>
+        <div class="alert-card" *ngIf="hasHighPollution(latestData)" style="margin-top: 10px;">
+          <strong>🚨 High Pollution Levels Detected:</strong> Water quality parameters exceed safe limits in some areas. Consider using filtration systems.
+        </div>
+        <div class="alert-card" *ngIf="hasLowQuality(latestData)" style="margin-top: 10px;">
+          <strong>⚡ Seasonal Quality Changes:</strong> Monitor water quality during rainy seasons as runoff may affect local sources.
+        </div>
+      </div>
+
+    </ng-container>
+
+    <ng-template #loadingTpl>
+      <div class="loading-state" style="text-align: center; padding: 40px; color: #1a5f7a;">
+        <p>⏳ Fetching live environmental data from Open-Meteo...</p>
+      </div>
+    </ng-template>
 
   </div>
 </div>

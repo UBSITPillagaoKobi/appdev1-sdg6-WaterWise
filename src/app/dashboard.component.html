@@ -38,57 +38,7 @@
 -->
 
 <!--
-<section *ngIf="activeSection() === 'quality'" class="content-section">
-  <div class="quality-panel">
-    <div class="quality-panel-header">
-      <div>
-        <h3>Live Environment Snapshot</h3>
-        <p>Data from the Open-Meteo public API for quick environment context.</p>
-      </div>
-      <span class="quality-tag">Open-Meteo</span>
-    </div>
 
-    <ng-container *ngIf="latestData$ | async as latestData; else loadingTpl">
-      
-      <div class="quality-grid" *ngIf="latestData.length > 0 && !error()">
-        <article *ngFor="let item of latestData" class="quality-card">
-          <div class="quality-card-top">
-            <span class="quality-location">{{ item.location }}</span>
-            <span class="quality-country">{{ item.country }}</span>
-          </div>
-          <p class="quality-city">{{ item.city }}</p>
-          <div class="quality-value-row">
-            <span class="quality-value">{{ item.value }}</span>
-            <span class="quality-unit">{{ item.unit }}</span>
-          </div>
-          <div class="quality-parameter">{{ item.parameter }}</div>
-          <div class="quality-updated">Updated: {{ item.lastUpdated | date:'short' }}</div>
-        </article>
-      </div>
-
-      <div *ngIf="latestData.length === 0 && !error()" class="status-message">
-        No quality readings available right now.
-      </div>
-      
-      <div class="quality-alerts" *ngIf="latestData.length > 0 && !error()">
-        <h4>⚠️ Quality Alerts</h4>
-        <div class="alert-card" *ngIf="hasHighPollution(latestData)">
-          <span class="alert-icon">🚨</span>
-          <div>
-            <h5>High Pollution Levels Detected</h5>
-            <p>Water quality parameters exceed safe limits in some areas. Consider using filtration systems.</p>
-          </div>
-        </div>
-        <div class="alert-card" *ngIf="hasLowQuality(latestData)">
-          <span class="alert-icon">⚡</span>
-          <div>
-            <h5>Seasonal Quality Changes</h5>
-            <p>Monitor water quality during rainy seasons as runoff may affect local sources.</p>
-          </div>
-        </div>
-      </div>
-
-    </ng-container>
 
     <ng-template #loadingTpl>
       <div *ngIf="!error()" class="status-message">⏳ Loading latest quality data...</div>
