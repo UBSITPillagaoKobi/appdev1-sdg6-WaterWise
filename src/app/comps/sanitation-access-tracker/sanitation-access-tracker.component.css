@@ -153,5 +153,7 @@
   font-size: 0.9rem;
 }
 .img-balili {
-  border-radius: 10px;
+  display: block;
+  height: auto;
+  border-radius: 8px;
 }
