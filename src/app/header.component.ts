@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, CommonModule],
   template: `
     <nav class="dashboard-navbar">
       <div class="navbar-brand">WaterWise</div>
@@ -32,6 +33,13 @@ import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 
         <button type="button" class="profile-avatar" aria-label="Profile" (click)="goToProfile()">
           <img [src]="profileImage" alt="Profile avatar" />
+        </button>
+
+        <button *ngIf="!isAuthenticated" (click)="login()" class="auth-button login-button">
+          Login
+        </button>
+        <button *ngIf="isAuthenticated" (click)="logout()" class="auth-button logout-button">
+          Logout
         </button>
       </div>
     </nav>
@@ -148,6 +156,32 @@ import { RouterLink, RouterLinkActive, Router } from '@angular/router';
         border: none;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.15);
+      }
+
+      .auth-button {
+        padding: 8px 16px;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 150ms ease;
+      }
+
+      .login-button {
+        background: #28a745;
+      }
+
+      .login-button:hover {
+        background: #218838;
+      }
+
+      .logout-button {
+        background: #dc3545;
+      }
+
+      .logout-button:hover {
+        background: #c82333;
         box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
         display: inline-flex;
         align-items: center;
@@ -176,7 +210,22 @@ export class HeaderComponent {
 
   constructor(private router: Router) {}
 
+  get isAuthenticated(): boolean {
+    return !!localStorage.getItem('authToken');
+  }
+
   goToProfile() {
     this.router.navigate(['/profile']);
+  }
+
+  login() {
+    localStorage.setItem('authToken', 'authenticated');
+    alert('Logged in! You can now access the protected routes.');
+  }
+
+  logout() {
+    localStorage.removeItem('authToken');
+    alert('Logged out!');
+    this.router.navigate(['/dashboard']);
   }
 }

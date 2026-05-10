@@ -13,8 +13,6 @@ import { QualityLocation } from './models/water-quality.model';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  profileImage = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><rect width="80" height="80" fill="%230d6efd"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="36" fill="white" font-family="Arial,Helvetica,sans-serif">U</text></svg>';
-  
   activeSection = signal('quality');
   showerTime = signal(10);
   showersPerWeek = signal(7);
@@ -41,24 +39,6 @@ export class DashboardComponent implements OnInit {
         return of([]); 
       })
     );
-  }
-
-  goToProfile() {
-    this.router.navigate(['/profile']); 
-  }
-
-  get isAuthenticated(): boolean {
-    return !!localStorage.getItem('authToken');
-  }
-
-  login() {
-    localStorage.setItem('authToken', 'authenticated');
-    alert('Logged in! You can now access the protected routes.');
-  }
-
-  logout() {
-    localStorage.removeItem('authToken');
-    alert('Logged out!');
   }
 
   setActiveSection(section: string): void {
