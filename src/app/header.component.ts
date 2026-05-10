@@ -1,6 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+
+interface ProfileData {
+  name?: string;
+  description?: string;
+  image?: string;
+}
 
 @Component({
   selector: 'app-header',
@@ -8,7 +14,22 @@ import { RouterLink, RouterLinkActive, Router } from '@angular/router';
   imports: [RouterLink, RouterLinkActive, CommonModule],
   template: `
     <nav class="dashboard-navbar">
-      <div class="navbar-brand">WaterWise</div>
+      <div class="navbar-brand">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" class="brand-icon__svg" focusable="false">
+            <defs>
+              <linearGradient id="waterwiseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#5bc0eb" />
+                <stop offset="100%" stop-color="#0d6efd" />
+              </linearGradient>
+            </defs>
+            <circle cx="32" cy="32" r="28" fill="url(#waterwiseGradient)" />
+            <path d="M32 14c-7 11-9 16-9 22 0 11 8 20 18 20s18-9 18-20c0-6-2-11-9-22-4-6-9-8-9-8s-5 2-9 8Z" fill="#fff" opacity="0.9"/>
+            <path d="M33 22.5c-1.7 2.8-2.2 7.1 2 11.4 4.8 4.8 7.8 5.4 7.8 9.9 0 5.1-4.5 7.5-10 7.5" stroke="#0d6efd" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>WaterWise</span>
+      </div>
 
       <ul class="nav-links">
         <li class="nav-item">
@@ -35,9 +56,6 @@ import { RouterLink, RouterLinkActive, Router } from '@angular/router';
           <img [src]="profileImage" alt="Profile avatar" />
         </button>
 
-        <button *ngIf="!isAuthenticated" (click)="login()" class="auth-button login-button">
-          Login
-        </button>
         <button *ngIf="isAuthenticated" (click)="logout()" class="auth-button logout-button">
           Logout
         </button>
@@ -61,9 +79,29 @@ import { RouterLink, RouterLinkActive, Router } from '@angular/router';
       }
 
       .navbar-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
         font-weight: 700;
         letter-spacing: 0.05em;
         font-size: 1.15rem;
+      }
+
+      .brand-icon {
+        width: 38px;
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.16);
+      }
+
+      .brand-icon__svg {
+        width: 26px;
+        height: 26px;
+        display: block;
       }
 
       .nav-links {
@@ -205,10 +243,36 @@ import { RouterLink, RouterLinkActive, Router } from '@angular/router';
     `
   ]
 })
-export class HeaderComponent {
+
+export class HeaderComponent implements OnInit {
   profileImage = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><rect width="80" height="80" fill="%230d6efd"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="36" fill="white" font-family="Arial,Helvetica,sans-serif">U</text></svg>';
 
   constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.loadProfileImage();
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.loadProfileImage();
+      }
+    });
+  }
+
+  private loadProfileImage() {
+    const saved = localStorage.getItem('profileData');
+    if (!saved) {
+      return;
+    }
+
+    try {
+      const profileData = JSON.parse(saved) as ProfileData;
+      if (profileData.image) {
+        this.profileImage = profileData.image;
+      }
+    } catch {
+      // ignore invalid saved data
+    }
+  }
 
   get isAuthenticated(): boolean {
     return !!localStorage.getItem('authToken');

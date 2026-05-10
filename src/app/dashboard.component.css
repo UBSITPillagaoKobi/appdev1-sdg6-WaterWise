@@ -108,6 +108,47 @@
   border-radius: 50%;
 }
 
+.dashboard-welcome {
+  margin-bottom: 24px;
+}
+
+.dashboard-user-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid rgba(13, 110, 253, 0.08);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+}
+
+.dashboard-profile-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #0d6efd;
+}
+
+.dashboard-user-text {
+  display: grid;
+  gap: 8px;
+}
+
+.dashboard-hello {
+  margin: 0;
+  color: #0d6efd;
+  font-weight: 700;
+}
+
+.dashboard-description {
+  margin: 0;
+  color: #4a5768;
+  max-width: 620px;
+  line-height: 1.5;
+}
+
 .search-input {
   min-width: 180px;
   padding: 10px 14px;

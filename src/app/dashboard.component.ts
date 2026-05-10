@@ -5,6 +5,12 @@ import { Observable, catchError, of } from 'rxjs';
 import { WaterQualityService } from './water-quality.service';
 import { QualityLocation } from './models/water-quality.model';
 
+interface ProfileData {
+  name?: string;
+  description?: string;
+  image?: string;
+}
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -17,6 +23,9 @@ export class DashboardComponent implements OnInit {
   showerTime = signal(10);
   showersPerWeek = signal(7);
   error = signal('');
+  profileImage = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><rect width="160" height="160" fill="%230d6efd"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="72" fill="white" font-family="Arial,Helvetica,sans-serif">U</text></svg>';
+  profileName = 'Unknown';
+  profileDescription = 'A community member helping improve access to safe water.';
 
   savingsResult = computed(() => {
     const currentUsage = this.showerTime() * this.showersPerWeek() * 2.1;
@@ -33,6 +42,7 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadProfileData();
     this.latestData$ = this.qualityService.getLatestQuality().pipe(
       catchError(err => {
         this.error.set('Unable to load quality data. Please try again later.');
@@ -67,5 +77,27 @@ export class DashboardComponent implements OnInit {
     return data.some(item =>
       item.parameter.toLowerCase().includes('turbidity') && item.value > 5
     );
+  }
+
+  private loadProfileData(): void {
+    const saved = localStorage.getItem('profileData');
+    if (!saved) {
+      return;
+    }
+
+    try {
+      const profileData = JSON.parse(saved) as ProfileData;
+      if (profileData.image) {
+        this.profileImage = profileData.image;
+      }
+      if (profileData.name) {
+        this.profileName = profileData.name;
+      }
+      if (profileData.description) {
+        this.profileDescription = profileData.description;
+      }
+    } catch {
+      // ignore invalid saved data
+    }
   }
 }

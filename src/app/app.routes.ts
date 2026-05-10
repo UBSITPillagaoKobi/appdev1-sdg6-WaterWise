@@ -9,8 +9,8 @@ import { FacilityDetailComponent } from './comps/facility-detail/facility-detail
 import { unsavedChangesGuard } from './guards/unsaved-changes.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: '', redirectTo: '/sanitation', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   
   { path: 'sanitation', component: SanitationAccessTrackerComponent, canActivate: [AuthGuard] },
   { path: 'water-conservation', component: WaterConservationGuideComponent, canActivate: [AuthGuard], canDeactivate: [unsavedChangesGuard] },
@@ -18,5 +18,5 @@ export const routes: Routes = [
   { path: 'facility/:id', component: FacilityDetailComponent, canActivate: [AuthGuard] }, 
   
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: '/dashboard' }
+  { path: '**', redirectTo: '/sanitation' }
 ];
