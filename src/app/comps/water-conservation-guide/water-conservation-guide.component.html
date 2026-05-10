@@ -3,7 +3,8 @@
     <h2 style="color: #1a5f7a;">Water Conservation Guide</h2>
     <p>Practical tips and strategies to conserve water in your daily life around Baguio City.</p>
     
-    <div class="conservation-tips" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+    <div class="main-container" style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: start;">
+      <div class="conservation-tips" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
       <article class="tip-card shadow-sm" style="padding: 15px; border-radius: 8px; border-left: 4px solid #26BDE2; background: white;">
         <h4>🚿 Shower Smarter</h4>
         <p>Take shorter showers (5-10 minutes) and install low-flow showerheads to reduce water usage by up to 50%.</p>
@@ -74,26 +75,27 @@
   <p>Check your water meter before and after a two-hour period when no water is being used. If the meter changes, you have a hidden leak.</p>
 </article>
 
-    </div>
-    
-    <div class="conservation-calculator" style="background: #e8f7fa; padding: 20px; border-radius: 8px;">
-      <h4 style="color: #1a5f7a;">💧 Water Savings Calculator</h4>
-      <p>Estimate your potential water savings:</p>
-      
-      <div class="calculator-inputs" style="display: flex; gap: 20px; margin-bottom: 15px;">
-        <label>
-          <strong>Daily shower time (minutes):</strong> <br>
-          <input style="margin-top: 5px; padding: 5px;" type="number" [value]="showerTime()" (input)="updateShowerTime($event)" min="1" max="30" /> 
-        </label>
-        
-        <label>
-          <strong>Showers per week:</strong> <br>
-          <input style="margin-top: 5px; padding: 5px;" type="number" [value]="showersPerWeek()" (input)="updateShowersPerWeek($event)" min="1" max="21" /> 
-        </label>
       </div>
-      
-      <div *ngIf="savingsResult() > 0" class="savings-result" style="background: #28a745; color: white; padding: 10px; border-radius: 4px;">
-        <p style="margin: 0;">By reducing your shower time to 5 minutes, you could save approximately <strong>{{ savingsResult() }} gallons per week</strong>!</p>
+    
+      <div class="conservation-calculator" style="background: #e8f7fa; padding: 20px; border-radius: 8px; position: sticky; top: 20px;">
+        <h4 style="color: #1a5f7a;">💧 Water Savings Calculator</h4>
+        <p>Estimate your potential water savings:</p>
+        
+        <div class="calculator-inputs" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 15px;">
+          <label>
+            <strong>Daily shower time (minutes):</strong> <br>
+            <input style="margin-top: 5px; padding: 5px; width: 100%; box-sizing: border-box;" type="number" [value]="showerTime()" (input)="updateShowerTime($event)" min="1" max="30" /> 
+          </label>
+          
+          <label>
+            <strong>Showers per week:</strong> <br>
+            <input style="margin-top: 5px; padding: 5px; width: 100%; box-sizing: border-box;" type="number" [value]="showersPerWeek()" (input)="updateShowersPerWeek($event)" min="1" max="21" /> 
+          </label>
+        </div>
+        <img src="https://ugokawaii.com/wp-content/uploads/2023/01/shower-1.gif" alt="Animated Water GIF" width="100px" length="100px" class="shower-gif"/><br><br><br><br><br><br><br>
+        <div *ngIf="savingsResult() > 0" class="savings-result" style="background: #28a745; color: white; padding: 10px; border-radius: 4px;">
+          <p style="margin: 0;">By reducing your shower time to 5 minutes, you could save approximately <strong>{{ savingsResult() }} gallons per week</strong>!</p>
+        </div>
       </div>
     </div>
   </div>
