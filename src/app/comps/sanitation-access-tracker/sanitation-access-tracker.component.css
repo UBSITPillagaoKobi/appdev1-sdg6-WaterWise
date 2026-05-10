@@ -1,0 +1,154 @@
+.content-section {
+  margin-top: 20px;
+}
+
+.panel-title {
+  color: #1a5f7a;
+  margin-bottom: 5px;
+}
+
+.panel-subtitle {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+/* Stats Grid Layout */
+.sanitation-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+/* Individual Stat Cards */
+.stat-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.access-card { border-top: 4px solid #26BDE2; }
+.capacity-card { border-top: 4px solid #28a745; }
+.septic-card { border-top: 4px solid #ffc107; }
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #888;
+  margin: 0;
+}
+
+.stat-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1a5f7a;
+  margin: 10px 0;
+}
+
+.stat-description {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+/* Localized Insight Box */
+.local-insight-box {
+  margin-top: 30px;
+  background: #eef9fb;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #26BDE2;
+}
+
+.insight-title {
+  color: #1a5f7a;
+  margin-top: 0;
+}
+
+.insight-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.insight-list {
+  list-style: none;
+  padding: 0;
+  font-size: 0.9rem;
+  color: #444;
+  margin-top: 15px;
+}
+
+.insight-list li {
+  margin-bottom: 8px;
+}
+.status-message {
+  color: #334155;
+  margin-top: 16px;
+}
+
+.status-message.error {
+  color: #b02a37;
+}
+
+.content-section {
+  margin-top: 24px;
+}
+
+.panel {
+  background: #f8fafd;
+  padding: 22px;
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+.panel h3 {
+  margin: 0 0 8px 0;
+  color: #0d6efd;
+}
+
+.panel > p {
+  margin: 0 0 20px 0;
+  color: #4a5768;
+}
+
+.sanitation-stats {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-top: 20px;
+}
+
+.stat-card {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(13, 110, 253, 0.08);
+  text-align: center;
+}
+
+.stat-card h4 {
+  margin: 0 0 8px 0;
+  color: #0d6efd;
+  font-size: 1rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0d6efd;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.stat-card p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 0.9rem;
+}

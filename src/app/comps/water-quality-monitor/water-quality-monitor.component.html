@@ -1,28 +1,84 @@
-<div>
-  <h2>Local Water Quality Monitor</h2>
-  <p>Select a category below to filter the local water sources.</p>
+<div class="monitor-container">
+  
+  <div style="margin-bottom: 40px;">
+    <h2 class="section-title">Local Water Quality Monitor</h2>
+    <p>Select a category below to filter the local Baguio water sources.</p>
 
-  <div style="margin-bottom: 20px;">
-    <button (click)="setFilter('All')">Show All</button>
-    <button (click)="setFilter('Good')">Show Good</button>
-    <button (click)="setFilter('Poor')">Show Poor</button>
+    <div class="filter-group">
+      <button class="btn-filter" (click)="setFilter('All')" [class.active]="currentFilter === 'All'">Show All</button>
+      <button class="btn-filter" (click)="setFilter('Good')" [class.active]="currentFilter === 'Good'">Show Good</button>
+      <button class="btn-filter" (click)="setFilter('Poor')" [class.active]="currentFilter === 'Poor'">Show Poor</button>
+    </div>
+
+    <div class="local-sources-grid">
+      <div *ngFor="let source of displayedSources" class="local-card">
+        <h3>{{ source.name }}</h3>
+        <p><strong>pH Level:</strong> {{ source.phLevel }}</p>
+
+        <p *ngIf="source.safe" class="status-safe">
+          Status: {{ source.status }} (Safe)
+        </p>
+        <p *ngIf="!source.safe" class="status-unsafe">
+          Status: {{ source.status }} (Unsafe)
+        </p>
+      </div>
+    </div>
   </div>
 
-  <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-    
-    <div *ngFor="let source of displayedSources" style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; width: 250px;">
-      <h3 style="margin-top: 0;">{{ source.name }}</h3>
-      <p><strong>pH Level:</strong> {{ source.phLevel }}</p>
+  <hr class="section-divider">
 
-
-      <p *ngIf="source.safe" style="color: green; font-weight: bold;">
-        Status: {{ source.status }} (Safe to drink)
-      </p>
-
-      <p *ngIf="!source.safe" style="color: red; font-weight: bold;">
-        Status: {{ source.status }} (Do not drink)
-      </p>
+  <div class="quality-panel">
+    <div class="quality-panel-header">
+      <div>
+        <h3 class="section-title">Live Environment Snapshot</h3>
+        <p>Data from the Open-Meteo public API for quick environment context.</p>
+      </div>
+      <span class="quality-tag">Open-Meteo API</span>
     </div>
+
+    <div *ngIf="error()" class="error-banner">
+      {{ error() }}
+    </div>
+
+    <ng-container *ngIf="latestData$ | async as latestData; else loadingTpl">
+      
+      <div class="quality-grid" *ngIf="latestData.length > 0 && !error()">
+        <article *ngFor="let item of latestData" class="quality-card">
+          <div class="quality-card-top">
+            <span class="quality-location">{{ item.location }}</span>
+            <span class="quality-country">{{ item.country }}</span>
+          </div>
+          <p class="quality-city">{{ item.city }}</p>
+          <div class="quality-value-row">
+            <span class="quality-value">{{ item.value }}</span>
+            <span class="quality-unit">{{ item.unit }}</span>
+          </div>
+          <div class="quality-parameter">{{ item.parameter }}</div>
+          <div class="quality-updated">Updated: {{ item.lastUpdated | date:'shortTime' }}</div>
+        </article>
+      </div>
+
+      <div *ngIf="latestData.length === 0 && !error()" class="status-message">
+        No quality readings available right now.
+      </div>
+      
+      <div class="quality-alerts" *ngIf="latestData.length > 0 && !error()">
+        <h4>⚠️ Quality Alerts</h4>
+        <div class="alert-card" *ngIf="hasHighPollution(latestData)">
+          <strong>🚨 High Pollution Levels Detected:</strong> Water quality parameters exceed safe limits in some areas. Consider using filtration systems.
+        </div>
+        <div class="alert-card" *ngIf="hasLowQuality(latestData)">
+          <strong>⚡ Seasonal Quality Changes:</strong> Monitor water quality during rainy seasons as runoff may affect local sources.
+        </div>
+      </div>
+
+    </ng-container>
+
+    <ng-template #loadingTpl>
+      <div class="loading-state">
+        <p>⏳ Fetching live environmental data from Open-Meteo...</p>
+      </div>
+    </ng-template>
 
   </div>
 </div>

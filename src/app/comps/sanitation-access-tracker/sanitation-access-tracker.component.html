@@ -1,1 +1,61 @@
-<p>sanitation-access-tracker works!</p>
+
+<section class="content-section">
+  <div class="panel">
+    <div class="panel-header">
+      <h3 class="panel-title">📍 Baguio City Sanitation Overview</h3>
+    </div>
+
+    <div class="sanitation-stats-grid">
+      
+      <div class="stat-card access-card">
+        <h4 class="stat-label">Urban Access Rate</h4>
+        <span class="stat-value">98.2%</span>
+        <p class="stat-description">Households in the Central Business District with access to the city's main sewer line.</p>
+      </div>
+
+      <div class="stat-card capacity-card">
+        <h4 class="stat-label">Baguio STP Capacity</h4>
+        <span class="stat-value">8,500 m³</span>
+        <p class="stat-description">Daily volume of wastewater processed at the South Drive Sewage Treatment Plant.</p>
+      </div>
+
+      <div class="stat-card septic-card">
+        <h4 class="stat-label">Septic Monitoring</h4>
+        <span class="stat-value">128+</span>
+        <p class="stat-description">Barangays covered by the city-wide "Desludging Ordinance" to protect groundwater.</p>
+      </div>
+      
+    </div>
+
+    <div class="local-insight-box">
+      <h4 class="insight-title">The Balili River Challenge</h4>
+      <p class="insight-text">
+        Unlike flat cities, Baguio's terrain requires advanced sanitation engineering. Currently, the city focus is on 
+        <strong>Zero Open Defecation (ZOD)</strong> status for all outlying barangays and the strict installation 
+        of grease traps for commercial establishments along Session Road and the Public Market to prevent 
+        blockages in the mountainous sewer network.
+      </p>
+      <ul class="insight-list">
+        <li><strong>Tourist Impact:</strong> Sanitation services scale up by 300% during Panagbenga Season.</li>
+        <li><strong>Waste Management:</strong> 100% of collected septage is treated before release into local creeks.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="directory-container" style="padding: 20px;">
+  <h2 style="color: #1a5f7a;">Baguio City Public Sanitation Directory</h2>
+  <p>Find clean, accessible, and safe public restrooms around the Summer Capital.</p>
+
+  <div class="cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+    
+    <app-facility-card 
+      *ngFor="let item of facilities" 
+      [facility]="item" 
+      (viewDirections)="handleViewDirections($event)">
+    </app-facility-card>
+
+  </div>
+</div>
