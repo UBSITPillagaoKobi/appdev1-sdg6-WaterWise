@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
+  constructor(private router: Router) {}
+
   canActivate(): boolean {
     const isAuthenticated = !!localStorage.getItem('authToken');
 
@@ -12,8 +14,8 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    // Auto-assign guest access while we keep guest-only mode.
-    localStorage.setItem('authToken', 'guest');
-    return true;
+    // Redirect to login if not authenticated
+    this.router.navigate(['/login']);
+    return false;
   }
 }

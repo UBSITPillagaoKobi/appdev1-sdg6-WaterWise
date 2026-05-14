@@ -7,8 +7,10 @@ import { ProfileComponent } from './comps/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { FacilityDetailComponent } from './comps/facility-detail/facility-detail'; 
 import { unsavedChangesGuard } from './guards/unsaved-changes.guard';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
+  { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/sanitation', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   
