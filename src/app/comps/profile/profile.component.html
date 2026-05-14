@@ -1,0 +1,88 @@
+<div class="card-profile">
+  <div class="profile-header">
+    <div class="avatar-wrapper">
+      <img [src]="profileData.image || profileImage" alt="Profile avatar" class="profile-avatar" />
+      <label *ngIf="editMode" class="photo-upload">
+        <input type="file" accept="image/*" (change)="onPhotoSelected($event)" />
+        Change photo
+      </label>
+    </div>
+
+    <div class="profile-info">
+      <div class="profile-title-row">
+        <div>
+          <h1 *ngIf="!editMode">{{ profileData.name }}</h1>
+          <input *ngIf="editMode" [(ngModel)]="profileData.name" class="profile-input" placeholder="Name" />
+        </div>
+        <button type="button" class="edit-button" (click)="toggleEdit()">
+          {{ editMode ? 'Save Profile' : 'Edit Profile' }}
+        </button>
+      </div>
+
+      <div class="description-block">
+        <p *ngIf="!editMode">{{ profileData.description }}</p>
+        <textarea *ngIf="editMode" [(ngModel)]="profileData.description" class="description-input" rows="4" placeholder="Describe yourself"></textarea>
+      </div>
+
+      <div class="detail-row">
+        <label>Address</label>
+        <div *ngIf="!editMode">{{ profileData.address }}</div>
+        <input *ngIf="editMode" [(ngModel)]="profileData.address" class="profile-input" />
+      </div>
+      <div class="detail-row">
+        <label>Email</label>
+        <div *ngIf="!editMode">{{ profileData.email }}</div>
+        <input *ngIf="editMode" type="email" [(ngModel)]="profileData.email" class="profile-input" />
+      </div>
+      <div class="detail-row">
+        <label>Phone</label>
+        <div *ngIf="!editMode">{{ profileData.phone }}</div>
+        <input *ngIf="editMode" [(ngModel)]="profileData.phone" class="profile-input" />
+      </div>
+      <div class="detail-row">
+        <label>Role</label>
+        <div *ngIf="!editMode">{{ profileData.role }}</div>
+        <input *ngIf="editMode" [(ngModel)]="profileData.role" class="profile-input" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="card">
+    <h2>Water Quality Monitoring</h2>
+    <div class="grid">
+      <div class="stat-box">
+        <h3>pH Level</h3>
+        <p>7.2</p>
+        <span class="status good">Good</span>
+      </div>
+      <div class="stat-box">
+        <h3>Turbidity</h3>
+        <p>5 NTU</p>
+        <span class="status moderate">Moderate</span>
+      </div>
+      <div class="stat-box">
+        <h3>Contaminants</h3>
+        <p>Low</p>
+        <span class="status good">Safe</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Water Conservation Guide</h2>
+    <ul>
+      <li>Fix leaks immediately to prevent water waste</li>
+      <li>Use water-efficient appliances</li>
+      <li>Turn off taps when not in use</li>
+      <li>Harvest rainwater for household use</li>
+      <li>Educate community about water conservation</li>
+    </ul>
+    <a routerLink="/water-conservation" class="btn">Learn More</a>
+  </div>
+</div>
+
+<footer>
+  &copy; 2026 SDG 6 Water Monitoring System
+</footer>

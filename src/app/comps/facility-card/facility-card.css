@@ -1,0 +1,62 @@
+.facility-card {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-left: 5px solid #26BDE2;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .facility-card .placeholder-img {
+      display: block;
+      margin: 0 auto 15px;
+      max-width: 120px;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .card-header h4 {
+      margin: 0;
+      color: #1a5f7a;
+    }
+    .badge-open {
+      background: #28a745;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+    }
+    .badge-closed {
+      background: #dc3545;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+    }
+    .card-body p {
+      margin: 5px 0;
+      font-size: 0.9rem;
+    }
+    .card-footer {
+      margin-top: 15px;
+      text-align: right;
+    }
+    .btn-outline-cyan {
+      background: transparent;
+      border: 1px solid #26BDE2;
+      color: #26BDE2;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    .btn-outline-cyan:hover {
+      background: #26BDE2;
+      color: white;
+    }

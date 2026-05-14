@@ -1,0 +1,102 @@
+<div class="content-section" style="padding: 20px;">
+  <div class="panel">
+    <h2 style="color: #1a5f7a;">Water Conservation Guide</h2>
+    <p>Practical tips and strategies to conserve water in your daily life around Baguio City.</p>
+    
+    <div class="main-container" style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: start;">
+      <div class="conservation-tips" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+      <article class="tip-card shadow-sm" style="padding: 15px; border-radius: 8px; border-left: 4px solid #26BDE2; background: white;">
+        <h4>🚿 Shower Smarter</h4>
+        <p>Take shorter showers (5-10 minutes) and install low-flow showerheads to reduce water usage by up to 50%.</p>
+      </article>
+      
+      <article class="tip-card shadow-sm" style="padding: 15px; border-radius: 8px; border-left: 4px solid #26BDE2; background: white;">
+        <h4>🍽️ Kitchen Efficiency</h4>
+        <p>Run full loads in dishwashers and washing machines. Fix leaky faucets immediately - they can waste 3,000 gallons per year.</p>
+      </article>
+      
+      <article class="tip-card shadow-sm" style="padding: 15px; border-radius: 8px; border-left: 4px solid #26BDE2; background: white;">
+        <h4>🌱 Garden Wisely</h4>
+        <p>Use drought-resistant plants, mulch to retain soil moisture, and water lawns/gardens during cooler parts of the day.</p>
+      </article>
+      
+      <article class="tip-card shadow-sm" style="padding: 15px; border-radius: 8px; border-left: 4px solid #26BDE2; background: white;">
+        <h4>🚰 Faucet Habits</h4>
+        <p>Turn off faucets while brushing teeth or soaping up. Collect rainwater for outdoor use when possible.</p>
+      </article>
+
+      <article class="tip-card shadow-sm" style="padding: 15px; border-radius: 8px; border-left: 4px solid #26BDE2; background: white;">
+  <h4>🌧️ Rainwater Harvesting</h4>
+  <p>In Baguio, utilize the heavy rainy season by setting up catchment barrels. Use this water for flushing toilets and watering indoor plants.</p>
+</article>
+
+<article class="tip-card shadow-sm" style="padding: 15px; border-radius: 8px; border-left: 4px solid #26BDE2; background: white;">
+  <h4>🚽 Dual-Flush Retrofit</h4>
+  <p>Replace old toilets with dual-flush models or place a weighted bottle in the tank to displace water and reduce the volume used per flush.</p>
+</article>
+
+<article class="tip-card shadow-sm" style="padding: 15px; border-radius: 8px; border-left: 4px solid #26BDE2; background: white;">
+  <h4>🧼 Eco-Friendly Laundry</h4>
+  <p>Only run your washing machine with a full load. Use cold water cycles to save energy and choose high-efficiency detergents that require less rinsing.</p>
+</article>
+
+<article class="tip-card shadow-sm" style="padding: 15px; border-radius: 8px; border-left: 4px solid #26BDE2; background: white;">
+  <h4>🧺 Greywater Reuse</h4>
+  <p>Collect the water used for washing vegetables or the "rinse" water from laundry (greywater) to clean your outdoor driveways or patio areas.</p>
+</article>
+
+<article class="tip-card shadow-sm" style="padding: 15px; border-radius: 8px; border-left: 4px solid #26BDE2; background: white;">
+  <h4>🥩 Defrosting Safely</h4>
+  <p>Avoid running the tap to thaw frozen meat. Instead, plan ahead and thaw food in the refrigerator overnight to save gallons of running water.</p>
+</article>
+
+<article class="tip-card shadow-sm" style="padding: 15px; border-radius: 8px; border-left: 4px solid #26BDE2; background: white;">
+  <h4>🌲 Pine Needle Mulching</h4>
+  <p>Use Baguio’s abundant pine needles as mulch in your garden. They help retain soil moisture and reduce the need for frequent watering.</p>
+</article>
+
+<article class="tip-card shadow-sm" style="padding: 15px; border-radius: 8px; border-left: 4px solid #26BDE2; background: white;">
+  <h4>🧹 Sweep, Don't Hose</h4>
+  <p>Clean your sidewalk or storefront with a broom rather than a hose. Hosing down a driveway can waste over 100 gallons of water in just minutes.</p>
+</article>
+
+<article class="tip-card shadow-sm" style="padding: 15px; border-radius: 8px; border-left: 4px solid #26BDE2; background: white;">
+  <h4>🧊 Ice Cube Recycling</h4>
+  <p>If you accidentally drop ice cubes, don't throw them in the sink. Place them in a potted plant instead to provide a slow-drip watering effect.</p>
+</article>
+
+<article class="tip-card shadow-sm" style="padding: 15px; border-radius: 8px; border-left: 4px solid #26BDE2; background: white;">
+  <h4>🐕 Pet Bathing Tips</h4>
+  <p>Wash your pets in an area of the lawn that needs water. Use a bucket and sponge rather than a running hose to control water flow.</p>
+</article>
+
+<article class="tip-card shadow-sm" style="padding: 15px; border-radius: 8px; border-left: 4px solid #26BDE2; background: white;">
+  <h4>🕵️ Leak Detection</h4>
+  <p>Check your water meter before and after a two-hour period when no water is being used. If the meter changes, you have a hidden leak.</p>
+</article>
+
+      </div>
+    
+      <div class="conservation-calculator" style="background: #e8f7fa; padding: 20px; border-radius: 8px; position: sticky; top: 20px;">
+        <h4 style="color: #1a5f7a;">💧 Water Savings Calculator</h4>
+        <p>Estimate your potential water savings:</p>
+        
+        <div class="calculator-inputs" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 15px;">
+          <label>
+            <strong>Daily shower time (minutes):</strong> <br>
+            <input style="margin-top: 5px; padding: 5px; width: 100%; box-sizing: border-box;" type="number" [value]="showerTime()" (input)="updateShowerTime($event)" min="1" max="30" /> 
+          </label>
+          
+          <label>
+            <strong>Showers per week:</strong> <br>
+            <input style="margin-top: 5px; padding: 5px; width: 100%; box-sizing: border-box;" type="number" [value]="showersPerWeek()" (input)="updateShowersPerWeek($event)" min="1" max="21" /> 
+          </label>
+        </div>
+        <img src="https://ugokawaii.com/wp-content/uploads/2023/01/shower-1.gif" alt="Animated Water GIF" width="100px" length="100px" class="shower-gif"/><br><br><br><br><br><br><br>
+        <div *ngIf="savingsResult() > 0" class="savings-result" style="background: #28a745; color: white; padding: 10px; border-radius: 4px;">
+          <p style="margin: 0;">By reducing your shower time to 5 minutes, you could save approximately <strong>{{ savingsResult() }} gallons per week</strong>!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

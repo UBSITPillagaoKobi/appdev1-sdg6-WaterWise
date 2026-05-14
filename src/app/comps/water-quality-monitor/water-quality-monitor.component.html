@@ -1,0 +1,85 @@
+<div class="monitor-container">
+  
+  <div style="margin-bottom: 40px;">
+    <h2 class="section-title">Local Water Quality Monitor</h2>
+    <p>Select a category below to filter the local Baguio water sources.</p>
+
+    <div class="filter-group">
+      <button class="btn-filter" (click)="setFilter('All')" [class.active]="currentFilter === 'All'">Show All</button>
+      <button class="btn-filter" (click)="setFilter('Good')" [class.active]="currentFilter === 'Good'">Show Good</button>
+      <button class="btn-filter" (click)="setFilter('Poor')" [class.active]="currentFilter === 'Poor'">Show Poor</button>
+    </div>
+
+    <div class="local-sources-grid">
+      <div *ngFor="let source of displayedSources" class="local-card">
+        <img class="placeholder-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAMFBMVEXx8/XCy9K/yND09vfw8vTP1tzp7O/i5ure4+fO1dvJ0dfT2d/EzNPt7/Lb4OXo6+4FeM7UAAAFL0lEQVR4nO2c24KrIAxFLdha7///t0dxOlWDSiAKztnrbR4G6SoJBKHZA6zJYncgQeCEAicUOKHACQVOKHBCgRMKnFDghAInFDihwAkFTihwQoETCpxQ4IQCJxQ4ocAJBU4ocEKBEwqcUOCEAicUOKHACQVOKHBCgRMKnFDghAInFDihwAkFTihwQoETCpxQ4IQCJxQ4ocAJBU4ot3Oi1KMq64FnWTVq+EueWzlRquqKVn/J+/ezEfdyHydKPYtc62yF1m1Xymq5ixPVdDnx8eslf1eCVu7hRFXFppAfLW39kNJyByeqOTJirGTvRsbKDZyozsHIpKUQsZK8E1Vu55GTrKTuRL0ZRoyVLviZaTtRVctUMuaVOnCoJO1E1WwjxsorbGZO2Qk7br5WuhApKTvpfZWMy5WAoZKuk6b1NhI4VJJ10uRBSsas0ng+OlUnVaARw9NvqCTqRERJpt9eUtJ0IqPEN36SdNIIKRnIPeafFJ0Ep9c5mr+qTdFJ2CRMpLAn5fScqJeokrFWZkoRdaImwtpw2T9iSnnxuiDoRFXda6hK28JzWTA14ryBxKFlTT9iTlT1W57o3Lta96yED8krRieknCw/DDuEP1TnKBlgzMlCTtZDXr+8pIjOwitK5x7JOKFD3mukiE85ix45S5FxYll46prdiv8ekpsU19wv4kS9LV1ouQPlrPzKliIzTuw9YDYiVfgFSxFx8rR+wcyMomSX9HYpTjlFwonqrB3gBc/JyYQjRcRJYe8Ay4l9rMlLcVi8iTjp7Y/nOBHcMjngWEoi4+TUlcmKw9rnxHzCWMqeU/ltkB9JEZl3SusnYmwQn1fm2GgPeiOzZrM9WZfu/3/BNDznYATLOLENffep+JppeMZBMSZUF9N6ljFM7KF3qpTduBZyQj4W53XTiRsEm1L2dr2k9k9W9Rtjq2BrJj9Zyk7pI7bP9lw8kfH+4KIFLGF77Sa3R90Un0POvHNCcYzsLVMk9+2buni1bd9xjMSJHMPmjCz7zov/fidW5GQ7OS/2e8BoRrLtrBfXScTIMVLsk09cJxEjZ8I6+cR1EmG1tsRaDsZ0EjlyDL0leuxOpulD4JTALtfXORRbnqVO1LDOePdtpoclWPsqulL+wt0P0SNnxFKrrp2opmuXl+5OuHA3PSmByDGQ9ezSydYdM+ELd4YUIsdANnoWTva2RSUv3JlnJRE5I2RbY+6kee1+dTrrhC7cPTZeMUdivZnydaIc3tdqqWuI6USOYZlSfp0oxzVlJxNByUSOYZlSPk6cDzqEXy17JDTn/LBMKRlTSRZ4X2giep2zZnEwZHLiGjifFt6BTtKKHMMspUxO2BkvDzoDm1jkGGa7bsaJx0t9XfgrOfuMlhezwsc48RrKufvhyiXXHatg8T2Zkm0eHzluxO8W4pXHKljkXycBt3h9blFdeqyCx2fPOguLbn6qTWsBu+Czxs/CopsdP4kmkx+mcZ8FRrfuWUqSTSYT005keDucW4iXnzRhMg17iYacC6A0VyZzzIQs0pBrUrn22JoXY4Us0pDjaZMzb+dIMX6/Qi0dHSU0XHySz48heqSaOs60vsvlq2mtpzj9OCh/Trgjew7afgLar63d6ec2SmTZm37+UyV7048K+Gmkm7O10A/8aaSbY7sEr8rYvYoNnX4Sr3EuYJVpVc35Ccu/innZbryMJ1n4v9f4N9FZ39XPZ931GYzMGH9VPHYfAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADp8Q9+nG9anuOrfAAAAABJRU5ErkJggg==" alt="Water source placeholder" />
+        <h3>{{ source.name }}</h3>
+        <p><strong>pH Level:</strong> {{ source.phLevel }}</p>
+
+        <p *ngIf="source.safe" class="status-safe">
+          Status: {{ source.status }} (Safe)
+        </p>
+        <p *ngIf="!source.safe" class="status-unsafe">
+          Status: {{ source.status }} (Unsafe)
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <div class="quality-panel">
+    <div class="quality-panel-header">
+      <div>
+        <h3 class="section-title">Live Environment Snapshot</h3>
+        <p>Data from the Open-Meteo public API for quick environment context.</p>
+      </div>
+      <span class="quality-tag">Open-Meteo API</span>
+    </div>
+
+    <div *ngIf="error()" class="error-banner">
+      {{ error() }}
+    </div>
+
+    <ng-container *ngIf="latestData$ | async as latestData; else loadingTpl">
+      
+      <div class="quality-grid" *ngIf="latestData.length > 0 && !error()">
+        <article *ngFor="let item of latestData" class="quality-card">
+          <div class="quality-card-top">
+            <span class="quality-location">{{ item.location }}</span>
+            <span class="quality-country">{{ item.country }}</span>
+          </div>
+          <p class="quality-city">{{ item.city }}</p>
+          <div class="quality-value-row">
+            <span class="quality-value">{{ item.value }}</span>
+            <span class="quality-unit">{{ item.unit }}</span>
+          </div>
+          <div class="quality-parameter">{{ item.parameter }}</div>
+          <div class="quality-updated">Updated: {{ item.lastUpdated | date:'shortTime' }}</div>
+        </article>
+      </div>
+
+      <div *ngIf="latestData.length === 0 && !error()" class="status-message">
+        No quality readings available right now.
+      </div>
+      
+      <div class="quality-alerts" *ngIf="latestData.length > 0 && !error()">
+        <h4>⚠️ Quality Alerts</h4>
+        <div class="alert-card" *ngIf="hasHighPollution(latestData)">
+          <strong>🚨 High Pollution Levels Detected:</strong> Water quality parameters exceed safe limits in some areas. Consider using filtration systems.
+        </div>
+        <div class="alert-card" *ngIf="hasLowQuality(latestData)">
+          <strong>⚡ Seasonal Quality Changes:</strong> Monitor water quality during rainy seasons as runoff may affect local sources.
+        </div>
+      </div>
+
+    </ng-container>
+
+    <ng-template #loadingTpl>
+      <div class="loading-state">
+        <p>⏳ Fetching live environmental data from Open-Meteo...</p>
+      </div>
+    </ng-template>
+
+  </div>
+</div>
